@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المدرسة الرائدة | École Pionnière – 2034</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060b1e; --bg2:#0a1333; --cyan:#19e7ff; --green:#1ddb7a;
+  --red:#ff2d55; --gold:#ffd35c; --glass:rgba(255,255,255,.06);
+  --line:rgba(25,231,255,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cairo','Tajawal',sans-serif; color:#eaf4ff;
+  background:radial-gradient(1200px 800px at 80% -10%,#15205c 0,transparent 60%),
+             radial-gradient(1000px 700px at 0% 110%,#06302a 0,transparent 55%),
+             linear-gradient(160deg,var(--bg),var(--bg2));
+  min-height:100vh; overflow-x:hidden; position:relative;
+}
+/* animated starfield */
+.stars,.stars2{position:fixed;inset:0;z-index:0;pointer-events:none}
+.stars{background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 70% 60%,#9fe8ff,transparent),radial-gradient(1px 1px at 40% 80%,#fff,transparent),radial-gradient(1px 1px at 90% 20%,#bff,transparent);background-size:400px 400px;animation:drift 90s linear infinite;opacity:.6}
+.stars2{background-image:radial-gradient(1px 1px at 10% 50%,#fff,transparent),radial-gradient(1.5px 1.5px at 60% 10%,#8ff,transparent),radial-gradient(1px 1px at 85% 75%,#fff,transparent);background-size:300px 300px;animation:drift 60s linear infinite reverse;opacity:.4}
+@keyframes drift{from{background-position:0 0}to{background-position:400px 400px}}
+/* floating orbs */
+.orb{position:fixed;border-radius:50%;filter:blur(40px);opacity:.5;z-index:0;pointer-events:none;animation:float 14s ease-in-out infinite}
+.orb.a{width:280px;height:280px;background:var(--cyan);top:-60px;right:-40px}
+.orb.b{width:240px;height:240px;background:var(--green);bottom:-50px;left:-30px;animation-delay:-4s}
+.orb.c{width:180px;height:180px;background:var(--red);top:40%;left:45%;opacity:.3;animation-delay:-8s}
+@keyframes float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(30px) translateX(20px)}}
+.wrap{position:relative;z-index:2;max-width:1150px;margin:0 auto;padding:24px 18px 40px}
+/* ===== TOP KINGDOM BAR ===== */
+.kingdom{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:18px 0 6px}
+.emblem{width:92px;height:104px;filter:drop-shadow(0 0 14px rgba(29,219,122,.55));animation:pulseGlow 3.5s ease-in-out infinite}
+@keyframes pulseGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(29,219,122,.4))}50%{filter:drop-shadow(0 0 22px rgba(29,219,122,.8))}}
+.kingdom h1{font-size:clamp(18px,3vw,26px);font-weight:900;letter-spacing:.5px;background:linear-gradient(90deg,#fff,#ffd35c,#1ddb7a,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 6s linear infinite}
+.kingdom .fr{font-family:'Orbitron',sans-serif;font-size:clamp(11px,1.6vw,14px);color:#bfe9ff;letter-spacing:3px}
+@keyframes shine{to{background-position:200% center}}
+.flagline{height:4px;width:180px;border-radius:4px;background:linear-gradient(90deg,var(--red),var(--green));box-shadow:0 0 16px var(--green)}
+/* ===== HERO / NAMES ===== */
+.hero{text-align:center;margin:26px 0 10px}
+.hero .title{font-size:clamp(28px,6vw,54px);font-weight:900;line-height:1.1;background:linear-gradient(90deg,var(--cyan),#fff,var(--green));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 5s linear infinite;text-shadow:0 0 30px rgba(25,231,255,.2)}
+.hero .sub{margin-top:6px;color:#bfe9ff;font-size:clamp(13px,2vw,17px);letter-spacing:1px}
+.badge-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0 6px}
+.id-badge{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:12px 18px;backdrop-filter:blur(8px);box-shadow:0 0 24px rgba(25,231,255,.12);min-width:230px}
+.id-badge .role{font-size:11px;letter-spacing:2px;color:var(--cyan);font-family:'Orbitron',sans-serif}
+.id-badge .nm{font-size:19px;font-weight:800;margin-top:3px}
+.id-badge .frn{font-size:12px;color:#9fd9ff}
+.id-badge.assist .role{color:var(--green)}
+/* ===== BUTTONS ===== */
+.btn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:34px 0 10px}
+.navbtn{position:relative;cursor:pointer;border:none;border-radius:20px;padding:26px 20px;text-align:center;color:#fff;font-family:'Cairo';overflow:hidden;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);transition:transform .25s,box-shadow .25s}
+.navbtn:hover{transform:translateY(-6px) scale(1.02)}
+.navbtn .ic{font-size:40px;display:block;margin-bottom:8px}
+.navbtn .ar{font-size:22px;font-weight:900}
+.navbtn .fr{display:block;font-size:13px;letter-spacing:1px;margin-top:4px;opacity:.85;font-family:'Orbitron',sans-serif}
+.navbtn::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.18),transparent 70%);transform:translateX(-120%);transition:transform .6s}
+.navbtn:hover::after{transform:translateX(120%)}
+.navbtn.pio{box-shadow:0 0 30px rgba(25,231,255,.25);border-color:rgba(25,231,255,.5)}
+.navbtn.pio:hover{box-shadow:0 0 45px rgba(25,231,255,.55)}
+.navbtn.pri{box-shadow:0 0 30px rgba(29,219,122,.22);border-color:rgba(29,219,122,.5)}
+.navbtn.pri:hover{box-shadow:0 0 45px rgba(29,219,122,.5)}
+.navbtn.cyb{background:linear-gradient(135deg,rgba(255,45,85,.22),rgba(120,0,30,.3));border-color:rgba(255,45,85,.7);box-shadow:0 0 32px rgba(255,45,85,.35);animation:redpulse 2.4s ease-in-out infinite}
+@keyframes redpulse{0%,100%{box-shadow:0 0 25px rgba(255,45,85,.35)}50%{box-shadow:0 0 50px rgba(255,45,85,.75)}}
+/* ===== SECTIONS ===== */
+section{display:none;animation:fadeIn .5s ease}
+section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:14px 0 22px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.sec-head h2{font-size:clamp(22px,4vw,34px);font-weight:900}
+.sec-head .city{color:var(--gold);font-size:15px;font-weight:700}
+.back{cursor:pointer;background:var(--glass);border:1px solid var(--line);color:#eaf4ff;padding:10px 18px;border-radius:12px;font-family:'Cairo';font-weight:700}
+.back:hover{background:rgba(25,231,255,.15)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.tab{cursor:pointer;background:var(--glass);border:1px solid var(--line);color:#cfeaff;padding:9px 16px;border-radius:999px;font-weight:700;font-size:14px;transition:.2s}
+.tab.on{background:linear-gradient(90deg,var(--cyan),var(--green));color:#042;border-color:transparent;box-shadow:0 0 18px rgba(25,231,255,.4)}
+.subject{margin-bottom:26px}
+.subject h3{font-size:19px;font-weight:800;color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.subject h3 .fr{font-size:12px;color:#9fd9ff;font-family:'Orbitron'}
+.lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.lesson{display:block;text-decoration:none;color:inherit;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:14px 16px;transition:.25s;position:relative}
+.lesson:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 0 22px rgba(25,231,255,.3)}
+.lesson .lt{font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px}
+.lesson .ld{font-size:13px;color:#bcd6ee;margin-top:8px;line-height:1.6}
+.lesson .play{margin-top:10px;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#042;background:linear-gradient(90deg,var(--cyan),var(--green));padding:5px 12px;border-radius:999px;font-weight:800}
+.cyber-hero{text-align:center;padding:30px 18px;border-radius:20px;background:linear-gradient(135deg,rgba(255,45,85,.12),rgba(10,15,40,.5));border:1px solid rgba(255,45,85,.4);margin-bottom:24px}
+.cyber-hero .big{font-size:clamp(24px,5vw,38px);font-weight:900;color:#ff6b86;text-shadow:0 0 20px rgba(255,45,85,.5)}
+.cyber-hero .fr{color:#ffb3c1;font-family:'Orbitron';letter-spacing:2px;margin-top:6px}
+footer{position:relative;z-index:2;margin-top:40px;padding:26px 18px;text-align:center;border-top:1px solid var(--line);background:rgba(4,8,24,.6);backdrop-filter:blur(6px)}
+footer .mk{font-weight:800;color:#dff3ff}
+footer .mkf{font-family:'Orbitron';font-size:12px;color:#9fd9ff;letter-spacing:1px;margin-top:4px}
+.wa{display:inline-flex;align-items:center;gap:10px;margin-top:16px;background:linear-gradient(90deg,#25d366,#128c7e);color:#fff;text-decoration:none;padding:12px 22px;border-radius:999px;font-weight:800;box-shadow:0 0 24px rgba(37,211,102,.4);transition:.2s}
+.wa:hover{transform:scale(1.05)}
+.wa small{display:block;font-weight:400;font-size:11px;opacity:.9}
+.consult{max-width:660px;margin:14px auto 0;font-size:13px;color:#cfe6ff;line-height:1.7}
+@media(max-width:560px){.id-badge{min-width:100%}}
+/* ===== THEME TOGGLE ===== */
+.theme-toggle{position:fixed;top:14px;left:14px;z-index:50;display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--line);border-radius:999px;padding:6px 10px;backdrop-filter:blur(10px);cursor:pointer;box-shadow:0 0 18px rgba(25,231,255,.3);font-family:'Orbitron',sans-serif;font-size:11px;color:var(--cyan);user-select:none;transition:.25s}
+.theme-toggle:hover{box-shadow:0 0 26px rgba(25,231,255,.6)}
+.theme-toggle .sw{position:relative;width:42px;height:22px;border-radius:999px;background:linear-gradient(90deg,#0a1333,#15205c);border:1px solid var(--line);transition:.3s}
+.theme-toggle .sw::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:linear-gradient(90deg,var(--cyan),var(--green));transition:.3s;box-shadow:0 0 10px var(--cyan)}
+body.light .theme-toggle .sw::after{left:22px}
+.theme-toggle .ic{font-size:14px}
+/* ===== NOTICE ===== */
+.notice{margin:18px 0 4px;border-radius:18px;padding:16px 20px;background:linear-gradient(135deg,rgba(255,211,92,.12),rgba(25,231,255,.08));border:1px solid rgba(255,211,92,.45);box-shadow:0 0 26px rgba(255,211,92,.2);position:relative;overflow:hidden}
+.notice::before{content:'📢';position:absolute;font-size:70px;opacity:.08;top:-10px;left:10px}
+.notice .nt{font-weight:900;color:var(--gold);font-size:16px;display:flex;align-items:center;gap:8px}
+.notice .nd{margin-top:6px;color:#eaf4ff;font-size:14px;line-height:1.8}
+.notice .nf{display:block;margin-top:4px;color:#9fd9ff;font-size:12px;direction:ltr;font-family:'Orbitron'}
+/* ===== CATEGORY BUTTONS ===== */
+.cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.catbtn{cursor:pointer;background:var(--glass);border:1px solid var(--line);color:#dff3ff;padding:10px 16px;border-radius:14px;font-family:'Cairo';font-weight:800;font-size:14px;transition:.2s}
+.catbtn.on{background:linear-gradient(90deg,var(--red),var(--gold));color:#210;border-color:transparent;box-shadow:0 0 20px rgba(255,211,92,.45)}
+.catbtn:hover{transform:translateY(-2px)}
+/* ===== CYBER EXTRA ===== */
+.cyber-sub h3{color:#ff6b86}
+.roadmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:10px}
+.step{background:linear-gradient(135deg,rgba(255,45,85,.1),rgba(10,15,40,.5));border:1px solid rgba(255,45,85,.35);border-radius:14px;padding:16px;position:relative}
+.step .sn{position:absolute;top:-10px;right:-10px;width:30px;height:30px;border-radius:50%;background:linear-gradient(90deg,var(--red),#ff8aa0);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-family:'Orbitron';box-shadow:0 0 14px rgba(255,45,85,.6)}
+.step .st{font-weight:800;color:#ff8aa0;font-size:15px}
+.step .sd{font-size:13px;color:#ffd7df;margin-top:6px;line-height:1.6}
+.lesson.tool{border-left:3px solid var(--red)}
+.lesson.tool .lt{color:#ff8aa0}
+/* ===== LIGHT THEME ===== */
+body.light{--bg:#eaf2ff;--bg2:#dbe7ff;--glass:rgba(10,30,70,.06);--line:rgba(10,90,160,.3);color:#0a1b3a;background:radial-gradient(1200px 800px at 80% -10%,#bfe0ff 0,transparent 60%),radial-gradient(1000px 700px at 0% 110%,#c8ffe8 0,transparent 55%),linear-gradient(160deg,#eaf2ff,#dbe7ff)}
+body.light .sub,body.light .id-badge .frn,body.light .subject h3 .fr{color:#2a4a7a}
+body.light .lesson,body.light .id-badge,body.light .navbtn,body.light .tab,body.light .catbtn,body.light .back{color:#0a1b3a}
+body.light .lesson .ld,body.light .notice .nd{color:#1a3358}
+body.light .stars,body.light .stars2{opacity:.15}
+body.light .orb{opacity:.25}
+body.light .theme-toggle{color:#0b63b0}
+body.light footer{background:rgba(255,255,255,.6)}
+</style></head>
+<body>
+<div class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع الليلي / النهاري">
+  <span class="ic" id="themeIcon">🌙</span>
+  <div class="sw"></div>
+  <span id="themeTxt">NIGHT</span>
+</div>
+<div class="stars"></div><div class="stars2"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+
+<div class="wrap">
+
+  <!-- KINGDOM TOP -->
+  <div class="kingdom">
+    <svg class="emblem" viewBox="0 0 100 112" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#d4a017"/></linearGradient></defs>
+      <path d="M50 4 L58 16 L72 12 L70 27 Q86 34 86 52 Q86 86 50 108 Q14 86 14 52 Q14 34 30 27 L28 12 L42 16 Z" fill="rgba(10,30,20,.55)" stroke="url(#g1)" stroke-width="3"/>
+      <polygon points="50,34 55.9,51.8 74.5,51.8 59.3,62.8 65.2,80.6 50,69.6 34.8,80.6 40.7,62.8 25.5,51.8 44.1,51.8" fill="none" stroke="#1ddb7a" stroke-width="3.5" stroke-linejoin="round"/>
+    </svg>
+    <h1>المملكة المغربية</h1>
+    <div class="fr">ROYAUME DU MAROC</div>
+    <div class="flagline"></div>
+  </div>
+
+  <!-- HOME -->
+  <section id="home" class="active">
+    <div class="hero">
+      <div class="title">منصة التعلم الرقمي</div>
+      <div class="sub">بوابة دروس التعليم الابتدائي · Plateforme d'Apprentissage Numérique 2034</div>
+    </div>
+    <div class="badge-row">
+      <div class="id-badge"><div class="role">DEVELOPER</div><div class="nm">Adam Tariq — آدم طارق</div><div class="frn">المطوّر والمشرف العام</div></div>
+      <div class="id-badge assist"><div class="role">ASSISTANT</div><div class="nm">Professeur Ismaël</div><div class="frn">الأستاذ إسماعيل · المساعد</div></div>
+    </div>
+    <div class="notice">
+      <div class="nt">📢 تنويه هام · Annonce importante</div>
+      <div class="nd">المدرسة الرائدة أصبحت الآن تضمّ جميع المستويات: الابتدائي والإعدادي والثانوي التأهيلي (الجذع المشترك العلمي والتكنولوجي TCT، الأولى باكالوريا بجميع الشعب، والثانية باكالوريا بجميع الشعب). جميع المستويات تُدرّس وفق المسار الدولي — خيار فرنسي.
+        <span class="nf">École Pionnière inclut désormais tous les niveaux (Primaire · Collège · Lycée) — Option Internationale Française.</span>
+      </div>
+    </div>
+    <div class="btn-grid">
+      <button class="navbtn pio" onclick="go('pionniere')"><span class="ic">🏫</span><span class="ar">المدرسة الرائدة</span><span class="fr">ÉCOLE PIONNIÈRE · LARACHE</span></button>
+      <button class="navbtn pri" onclick="go('privee')"><span class="ic">🎓</span><span class="ar">المدرسة الخصوصية</span><span class="fr">ÉCOLE PRIVÉE</span></button>
+      <button class="navbtn cyb" onclick="goCyber()"><span class="ic">🛡️🔒</span><span class="ar">خاص بطلاب الأمن السيبراني</span><span class="fr">RÉSERVÉ · CYBERSÉCURITÉ</span></button>
+    </div>
+  </section>
+
+  <!-- PIONNIERE -->
+  <section id="pionniere">
+    <div class="sec-head">
+      <div><h2>المدرسة الرائدة <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">École Pionnière</span></h2><div class="city">📍 بمدينة العرائش · Ville de Larache</div></div>
+      <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
+    </div>
+    <div class="cats" id="cats-pionniere"></div>
+    <div class="tabs" id="tabs-pionniere"></div>
+    <div id="content-pionniere"></div>
+  </section>
+
+  <!-- PRIVEE -->
+  <section id="privee">
+    <div class="sec-head">
+      <div><h2>المدرسة الخصوصية <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">École Privée</span></h2><div class="city">📚 المستويات من 1 إلى 6 · Niveaux 1 à 6</div></div>
+      <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
+    </div>
+    <div class="tabs" id="tabs-privee"></div>
+    <div id="content-privee"></div>
+  </section>
+
+  <!-- CYBER -->
+  <section id="cyber">
+    <div class="sec-head">
+      <div><h2 style="color:#ff6b86">الأمن السيبراني</h2></div>
+      <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
+    </div>
+    <div class="cyber-hero">
+      <div class="big">خاص بطلاب الأمن السيبراني</div>
+      <div class="fr">RÉSERVÉ AUX ÉTUDIANTS EN CYBERSÉCURITÉ</div>
+      <p style="margin-top:12px;color:#ffd7df;max-width:620px;margin-inline:auto">مسار تمهيدي للمبتدئين في عالم الأمن الرقمي · Un parcours d'initiation à la cybersécurité.</p>
+    </div>
+    <div id="content-cyber"></div>
+  </section>
+
+</div>
+
+  <footer>
+    <div class="mk">✨ صُنِع من طرف الخبير آدم طارق وفريق دعمه</div>
+    <div class="mkf">Réalisé par l'expert Adam Tariq et son équipe de support</div>
+    <div class="consult">
+      🔐 للاستشارة حول دراسة الأمن السيبراني للمبتدئين، المرجو التواصل مع الخبير آدم طارق عبر الواتساب.<br>
+      Pour toute consultation sur l'étude de la cybersécurité pour débutants, veuillez contacter l'expert Adam Tariq via WhatsApp.
+    </div>
+    <a class="wa" href="https://wa.me/34614981792" target="_blank" rel="noopener">💬 WhatsApp <small>+34 614 98 17 92</small></a>
+  </footer>
+
+<script>
+function go(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+var CYBER_PASS="3121645497870000";var cyberUnlocked=false;
+function goCyber(){if(cyberUnlocked){go('cyber');return;}var p=window.prompt("\uD83D\uDD12 هذا القسم محمي — المرجو إدخال كلمة السر\nSection protégée — Veuillez saisir le mot de passe :");if(p===null){return;}if(p.trim()===CYBER_PASS){cyberUnlocked=true;go('cyber');}else{alert("\u274C كلمة السر غير صحيحة\nMot de passe incorrect");}}
+function yt(q,kids){return 'https://www.youtube.com/results?search_query='+encodeURIComponent(q+(kids?' شرح للأطفال':' شرح الدرس كامل'));}
+function toggleTheme(){var b=document.body;b.classList.toggle('light');var l=b.classList.contains('light');document.getElementById('themeIcon').textContent=l?'☀️':'🌙';document.getElementById('themeTxt').textContent=l?'DAY':'NIGHT';}
+const LEVELS=['المستوى الأول|Niveau 1','المستوى الثاني|Niveau 2','المستوى الثالث|Niveau 3','المستوى الرابع|Niveau 4','المستوى الخامس|Niveau 5','المستوى السادس|Niveau 6'];
+const CURR={
+L1:{
+'اللغة العربية|Arabe|📖':[['الحروف الهجائية','نتعرف على حروف اللغة العربية وأشكالها ونطقها.'],['المد بالألف','نتعلم كيف نمد الصوت بالألف في الكلمات.'],['الكلمة والجملة','نركب الكلمات لتكوين جملة بسيطة ومفيدة.']],
+'الرياضيات|Maths|🔢':[['الأعداد من 0 إلى 9','نتعرف على الأعداد الأولى ونتعلم كتابتها وعدها.'],['المقارنة بين الأعداد','نقارن الأعداد باستعمال أكبر وأصغر ويساوي.'],['الجمع البسيط','نتعلم جمع عددين صغيرين بالرسم والأصابع.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les voyelles','نتعلم الحروف المتحركة a e i o u ونطقها.'],['Les salutations','تحيات بسيطة بالفرنسية: Bonjour, Merci, Au revoir.']],
+'النشاط العلمي|Sciences|🔬':[['الحواس الخمس','نكتشف حواسنا الخمس ودور كل واحدة منها.'],['أجزاء جسم الإنسان','نتعرف على الرأس والجذع والأطراف.'],['النباتات من حولنا','نلاحظ النباتات ونتعرف على حاجتها للماء والضوء.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['السور القصيرة','نحفظ سورتي الفاتحة والإخلاص بالترتيل.'],['آداب الطهارة','نتعلم النظافة والطهارة قبل الصلاة.']],
+'التربية الفنية|Arts|🎨':[['الألوان الأساسية','نتعرف على الألوان ونمزجها في رسوم ممتعة.']]
+},
+L2:{
+'اللغة العربية|Arabe|📖':[['الحروف المركبة','نقرأ كلمات فيها حروف متصلة ومركبة.'],['التنوين','نتعلم تنوين الفتح والضم والكسر.'],['الجملة المفيدة','نكوّن جملاً تعطي معنى تاماً.']],
+'الرياضيات|Maths|🔢':[['الأعداد إلى 99','نعد ونكتب الأعداد حتى تسعة وتسعين.'],['الطرح','نتعلم طرح الأعداد الصغيرة بطرق بسيطة.'],['الأشكال الهندسية','نتعرف على المربع والمثلث والدائرة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['L\'alphabet','نحفظ الأبجدية الفرنسية كاملة.'],['La famille','مفردات العائلة: père, mère, frère, sœur.']],
+'النشاط العلمي|Sciences|🔬':[['الحيوانات الأليفة والبرية','نصنف الحيوانات حسب مكان عيشها.'],['دورة الماء','نتعرف كيف يتبخر الماء ويتساقط مطراً.'],['الفصول الأربعة','نكتشف خصائص كل فصل من السنة.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['الوضوء','نتعلم خطوات الوضوء الصحيح.'],['سور قصيرة','نحفظ سوراً جديدة من القرآن الكريم.']],
+'التربية الفنية|Arts|🎨':[['الرسم والتلوين','نعبّر عن أفكارنا بالرسم باستعمال الألوان.']]
+},
+L3:{
+'اللغة العربية|Arabe|📖':[['أنواع الجمل','نميز بين الجملة الاسمية والفعلية.'],['علامات الترقيم','نستعمل النقطة والفاصلة وعلامة الاستفهام.'],['القراءة المسترسلة','نقرأ نصوصاً قصيرة بطلاقة وفهم.']],
+'الرياضيات|Maths|🔢':[['الأعداد إلى 999','نقرأ ونكتب الأعداد حتى تسعمائة وتسعة وتسعين.'],['الضرب','نتعلم جدول الضرب والعملية.'],['القياس','نقيس الأطوال بالسنتيمتر والمتر.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Le présent','تصريف الأفعال في الحاضر.'],['Le dialogue','نقرأ ونمثل حواراً قصيراً.']],
+'النشاط العلمي|Sciences|🔬':[['التغذية السليمة','نتعرف على الأغذية المفيدة لصحتنا.'],['الهواء من حولنا','نكتشف خصائص الهواء وأهميته.'],['الكهرباء البسيطة','نركب دارة كهربائية لإضاءة مصباح.']],
+'الاجتماعيات|Sciences Sociales|🗺️':[['الخريطة','نتعلم قراءة خريطة بسيطة ورموزها.'],['قياس الزمن','نتعرف على الساعة والأيام والأشهر.'],['الأسرة والمجتمع','دور الأسرة في المجتمع.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['أركان الإسلام','نتعرف على الأركان الخمسة.'],['الصلاة','نتعلم كيفية أداء الصلاة.']]
+},
+L4:{
+'اللغة العربية|Arabe|📖':[['الفعل والاسم والحرف','نميز أقسام الكلام الثلاثة.'],['الفاعل والمفعول','نحدد الفاعل والمفعول به في الجملة.'],['التعبير الكتابي','نتعلم كتابة فقرة مترابطة.']],
+'الرياضيات|Maths|🔢':[['الكسور','نتعرف على الكسر والبسط والمقام.'],['القسمة','نتعلم عملية القسمة الإقليدية.'],['المحيط','نحسب محيط الأشكال الهندسية.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les temps','الماضي والحاضر والمستقبل.'],['La description','نصف شخصاً أو مكاناً بالفرنسية.']],
+'النشاط العلمي|Sciences|🔬':[['التنفس','نتعرف على جهاز التنفس وأهميته.'],['الطاقة','مصادر الطاقة واستعمالاتها.'],['النباتات الخضراء','دور الضوء في نمو النبات.']],
+'الاجتماعيات|Sciences Sociales|🗺️':[['موقع المغرب','نحدد موقع المغرب على الخريطة.'],['الموارد الطبيعية','ثروات بلادنا الطبيعية.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['الزكاة','معنى الزكاة وأهميتها الاجتماعية.'],['السيرة النبوية','محطات من حياة النبي صلى الله عليه وسلم.']]
+},
+L5:{
+'اللغة العربية|Arabe|📖':[['الجملة الاسمية والفعلية','نحلل نوع الجملة ومكوناتها.'],['الإعراب','مبادئ الإعراب والعلامات.'],['الإنشاء','نكتب موضوعاً إنشائياً منظماً.']],
+'الرياضيات|Maths|🔢':[['الأعداد العشرية','نتعرف على الفاصلة والأجزاء العشرية.'],['المساحة','نحسب مساحة المربع والمستطيل.'],['النسبة المئوية','مفهوم النسبة المئوية وحسابها.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Le récit','نقرأ ونكتب قصة قصيرة.'],['Compréhension','نفهم نصاً ونجيب عن أسئلة.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Alphabet & Numbers','الحروف والأعداد بالإنجليزية.'],['Greetings & Colors','التحيات والألوان بالإنجليزية.']],
+'النشاط العلمي|Sciences|🔬':[['الجهاز الهضمي','رحلة الغذاء داخل جسمنا.'],['الضوء','انتشار الضوء والظل.'],['الكواكب','نتعرف على النظام الشمسي.']],
+'الاجتماعيات|Sciences Sociales|🗺️':[['القارات','نتعرف على قارات العالم.'],['الحضارات القديمة','لمحة عن الحضارات الإنسانية.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['الحج','مناسك الحج ومعناها.'],['الأخلاق الحسنة','قيم الصدق والاحترام والتعاون.']]
+},
+L6:{
+'اللغة العربية|Arabe|📖':[['الإعراب المتقدم','نعرب جملاً متنوعة.'],['تحليل النصوص','نفهم النص ونستخرج أفكاره.'],['التلخيص','نلخص نصاً مع الحفاظ على المعنى.']],
+'الرياضيات|Maths|🔢':[['التناسب','التناسبية وحل المسائل.'],['الهندسة','الزوايا والمجسمات.'],['الأعداد الكبيرة','نقرأ ونكتب الملايين والملايير.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Production écrite','ننتج نصاً منظماً بالفرنسية.'],['Texte argumentatif','نعبّر عن رأينا بحجج.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Simple Present','زمن المضارع البسيط.'],['My School & Daily life','مفردات المدرسة والحياة اليومية.']],
+'النشاط العلمي|Sciences|🔬':[['التكاثر عند الكائنات','كيف تتكاثر النباتات والحيوانات.'],['البيئة وحمايتها','نتعلم المحافظة على البيئة.'],['الكهرباء والمغناطيس','ظواهر المغنطة والتيار.']],
+'الاجتماعيات|Sciences Sociales|🗺️':[['المغرب والعالم','علاقات المغرب الدولية.'],['التنمية المستدامة','نتعلم مفهوم التنمية والبيئة.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القرآن والتدبر','نتدبر معاني بعض الآيات.'],['حقوق الإنسان في الإسلام','قيم العدل والتسامح.']]
+}
+};
+const CYBER=[
+['ما هو الأمن السيبراني؟|Introduction à la cybersécurité','مقدمة مبسطة تشرح ماذا يعني الأمن الرقمي ولماذا هو مهم في حياتنا.'],
+['كلمات المرور القوية|Mots de passe sécurisés','نتعلم كيف ننشئ كلمات سر قوية ونحمي حساباتنا.'],
+['التصيد الإلكتروني|Le Phishing','نتعرف على رسائل الاحتيال وكيف نتجنبها.'],
+['حماية الخصوصية على الإنترنت|Protection de la vie privée','نتعلم حماية بياناتنا الشخصية على الشبكة.'],
+['أساسيات الشبكات|Bases des réseaux','مقدمة عن عمل الشبكات والإنترنت.'],
+['مقدمة في لينكس|Introduction à Linux','أول خطوات العمل مع نظام لينكس للمبتدئين.']
+];
+
+function detailExp(subj,title,desc){
+  var s=subj||''; var sl=s.toLowerCase();
+  var mid='';
+  if(s.indexOf('عربية')>-1){mid='يتدرّب التلميذ على القراءة السليمة والكتابة الصحيحة والتعبير بجُمل مفيدة، مع الانتباه إلى الحروف والحركات وعلامات الترقيم. نبدأ بأمثلة بسيطة ثم نتدرّج إلى جمل أطول.';}
+  else if(s.indexOf('رياض')>-1){mid='يفهم التلميذ الفكرة عبر أمثلة محسوسة ورسوم توضيحية، ثم يتدرّب على تمارين متدرّجة من السهل إلى الأصعب حتى يتقن الحساب والمنطق وحلّ المسائل.';}
+  else if(s.indexOf('فرنس')>-1||sl.indexOf('fran')>-1){mid='يتعلّم التلميذ مفردات وجُملاً فرنسية بسيطة مع النطق الصحيح، ويربطها بصور ومواقف من حياته اليومية لتسهيل الحفظ والفهم.';}
+  else if(s.indexOf('علمي')>-1||sl.indexOf('scien')>-1){mid='يكتشف التلميذ الظاهرة بالملاحظة والتجربة البسيطة، ويربط ما يتعلّمه بمحيطه الطبيعي حتى يفهم كيف تعمل الأشياء من حوله.';}
+  else if(s.indexOf('إسلام')>-1){mid='يتعلّم التلميذ القيم والآداب الإسلامية السمحة ويحفظ ما تيسّر من السور بالترتيل، ويربطها بسلوكه اليومي مع أسرته وزملائه.';}
+  else if(s.indexOf('فني')>-1||sl.indexOf('art')>-1){mid='ينمّي التلميذ حسّه الفني وإبداعه عبر الرسم والألوان والأشغال اليدوية، ويعبّر عن أفكاره بطريقة جمالية ممتعة.';}
+  else if(s.indexOf('اجتماع')>-1){mid='يتعرّف التلميذ على محيطه ووطنه المغرب وتاريخه وجغرافيته، ويتعلّم قيم المواطنة واحترام الآخر.';}
+  else if(s.indexOf('إنجليز')>-1||sl.indexOf('angl')>-1||sl.indexOf('engl')>-1){mid='يتعلّم التلميذ أولى كلمات اللغة الإنجليزية وجُملها البسيطة بطريقة تفاعلية ممتعة مع النطق الصحيح.';}
+  else if(s.indexOf('بدني')>-1){mid='يمارس التلميذ أنشطة حركية تقوّي جسمه ولياقته وتعلّمه روح الفريق واحترام القواعد.';}
+  else if(s.indexOf('سيبر')>-1||s.indexOf('أمن')>-1){mid='يفهم المتعلّم المفهوم خطوة بخطوة مع أمثلة واقعية، ويتعلّم كيف يحمي حساباته وبياناته الشخصية ويتصرّف بأمان على الإنترنت.';}
+  else if(s.indexOf('الحياة')>-1||sl.indexOf('svt')>-1){mid='يدرس التلميذ ظواهر الحياة والأرض عبر الملاحظة والتجريب وتحليل الوثائق، ويربط المفاهيم البيولوجية والجيولوجية بواقعه (La SVT en option française).';}
+  else if(s.indexOf('فيزياء')>-1||s.indexOf('كيمياء')>-1||sl.indexOf('physique')>-1||sl.indexOf('chimie')>-1){mid='يفهم التلميذ القوانين الفيزيائية والكيميائية من خلال التجارب والمعادلات والتمارين المتدرّجة، وكل المصطلحات بالفرنسية (Physique-Chimie).';}
+  else if(s.indexOf('فلسف')>-1||sl.indexOf('philo')>-1){mid='يتعلّم التلميذ طرح الإشكالات وبناء الحجاج الفلسفي من خلال المحاور الكبرى (الوضع البشري، المعرفة، السياسة، الأخلاق).';}
+  else if(s.indexOf('تكنولوج')>-1||sl.indexOf('techno')>-1||sl.indexOf('génie')>-1){mid='يكتسب التلميذ مهارات تقنية وهندسية (كهرباء، ميكانيك، تصميم) مع تطبيقات عملية ومصطلحات بالفرنسية.';}
+  else if(s.indexOf('معلوم')>-1||sl.indexOf('informat')>-1){mid='يتعلّم التلميذ أساسيات المعلوميات والخوارزميات والبرمجة خطوة بخطوة مع أمثلة تطبيقية.';}
+  else if(s.indexOf('اقتصاد')>-1||s.indexOf('محاسب')>-1||s.indexOf('تدبير')>-1){mid='يدرس التلميذ المفاهيم الاقتصادية والمحاسباتية والتدبيرية مع تمارين وحالات واقعية.';}
+  else{mid='يكتشف التلميذ الفكرة خطوة بخطوة عبر أمثلة وأنشطة بسيطة تساعده على الفهم والحفظ.';}
+  var ar='📘 <b>شرح الدرس:</b> '+(desc?desc+' ':'')+mid+' ويُنصح بمشاهدة الفيديو أسفله لمتابعة الشرح بالصوت والصورة ثم إعادة المحاولة بتمارين مشابهة.';
+  var fr='<span style="display:block;margin-top:6px;color:#9fd9ff;font-size:12px;direction:ltr">🏯 Explication détaillée, pas à pas, avec des exemples simples ; regardez la vidéo ci-dessous pour mieux comprendre.</span>';
+  return ar+fr;
+}
+function lessonCard(ar,en,desc,q,subj,kids,cls){
+  return '<a class="lesson'+(cls?' '+cls:'')+'" href="'+yt(q,kids)+'" target="_blank" rel="noopener">'+
+    '<div class="lt">▶️ <span>'+ar+'</span></div>'+
+    (en?'<div style="font-size:11px;color:#9fd9ff;font-family:Orbitron;margin-top:2px">'+en+'</div>':'')+
+    '<div class="ld">'+detailExp(subj,ar,desc)+'</div>'+
+    '<span class="play">▶ شاهد الشرح · YouTube</span></a>';
+}
+function renderLevel(where,lvl){
+  const data=CURR['L'+lvl]; let h='';
+  for(const key in data){
+    const [sar,sfr,emo]=key.split('|');
+    h+='<div class="subject"><h3>'+emo+' '+sar+' <span class="fr">'+sfr+'</span></h3><div class="lessons">';
+    data[key].forEach(l=>{ h+=lessonCard(l[0],'',l[1], sar+' '+l[0]+' المستوى '+lvl+' ابتدائي', sar, true); });
+    h+='</div></div>';
+  }
+  document.getElementById('content-'+where).innerHTML=h;
+}
+function buildTabs(where){
+  const t=document.getElementById('tabs-'+where); let h='';
+  LEVELS.forEach((lv,i)=>{ const [ar,fr]=lv.split('|'); h+='<div class="tab'+(i===0?' on':'')+'" data-l="'+(i+1)+'">'+ar+' · '+fr+'</div>'; });
+  t.innerHTML=h;
+  t.querySelectorAll('.tab').forEach(tab=>tab.onclick=()=>{ t.querySelectorAll('.tab').forEach(x=>x.classList.remove('on')); tab.classList.add('on'); renderLevel(where,tab.dataset.l); });
+  renderLevel(where,1);
+}
+function renderCyber(){
+  let h='<div class="subject"><h3>🛡️ المسار التمهيدي <span class="fr">Parcours d\'initiation</span></h3><div class="lessons">';
+  CYBER.forEach(c=>{ const [ar,en]=c[0].split('|'); h+=lessonCard(ar,en,c[1], ar+' أمن سيبراني للمبتدئين', 'الأمن السيبراني'); });
+  h+='</div></div>';
+  document.getElementById('content-cyber').innerHTML=h;
+}
+buildTabs('privee');
+</script>
+<script>
+/* ===== المستويات الكاملة للمدرسة الرائدة (مسار دولي · خيار فرنسي) ===== */
+const GRADES=[
+ {cat:'🏫 الابتدائي · Primaire', items:[
+  {id:'L1',ar:'الأول ابتدائي',fr:'1ère Prim',g:'المستوى الأول ابتدائي',kids:true},
+  {id:'L2',ar:'الثاني ابتدائي',fr:'2ème Prim',g:'المستوى الثاني ابتدائي',kids:true},
+  {id:'L3',ar:'الثالث ابتدائي',fr:'3ème Prim',g:'المستوى الثالث ابتدائي',kids:true},
+  {id:'L4',ar:'الرابع ابتدائي',fr:'4ème Prim',g:'المستوى الرابع ابتدائي',kids:true},
+  {id:'L5',ar:'الخامس ابتدائي',fr:'5ème Prim',g:'المستوى الخامس ابتدائي',kids:true},
+  {id:'L6',ar:'السادس ابتدائي',fr:'6ème Prim',g:'المستوى السادس ابتدائي',kids:true}
+ ]},
+ {cat:'🏫 الإعدادي · Collège', items:[
+  {id:'C1',ar:'الأولى إعدادي',fr:'1ère AC',g:'الأولى إعدادي دولي خيار فرنسي',kids:false},
+  {id:'C2',ar:'الثانية إعدادي',fr:'2ème AC',g:'الثانية إعدادي دولي خيار فرنسي',kids:false},
+  {id:'C3',ar:'الثالثة إعدادي',fr:'3ème AC',g:'الثالثة إعدادي دولي خيار فرنسي',kids:false}
+ ]},
+ {cat:'🎓 الجذع المشترك · Tronc Commun', items:[
+  {id:'TCS',ar:'جذع مشترك علمي (خيار فرنسي)',fr:'TC Sciences',g:'الجذع المشترك العلمي خيار فرنسي',kids:false},
+  {id:'TCT',ar:'جذع مشترك تكنولوجي TCT',fr:'TC Technologique',g:'الجذع المشترك التكنولوجي TCT خيار فرنسي',kids:false}
+ ]},
+ {cat:'🎓 الأولى باك · 1ère Bac', items:[
+  {id:'1BSE',ar:'علوم تجريبية',fr:'Sc. Exp',g:'الأولى باك علوم تجريبية دولي خيار فرنسي',kids:false},
+  {id:'1BSM',ar:'علوم رياضية',fr:'Sc. Maths',g:'الأولى باك علوم رياضية دولي خيار فرنسي',kids:false},
+  {id:'1BST',ar:'علوم وتكنولوجيا',fr:'STE/STM',g:'الأولى باك علوم وتكنولوجيا دولي خيار فرنسي',kids:false},
+  {id:'1BECO',ar:'علوم اقتصادية وتدبير',fr:'Sc. Éco',g:'الأولى باك علوم اقتصادية وتدبير دولي خيار فرنسي',kids:false},
+  {id:'1BLSH',ar:'آداب وعلوم إنسانية',fr:'Lettres & SH',g:'الأولى باك آداب وعلوم إنسانية',kids:false}
+ ]},
+ {cat:'🎓 الثانية باك · 2ème Bac', items:[
+  {id:'2BPC',ar:'علوم فيزيائية PC',fr:'Sc. Physiques',g:'الثانية باك علوم فيزيائية دولي خيار فرنسي',kids:false},
+  {id:'2BSVT',ar:'علوم الحياة والأرض SVT',fr:'SVT',g:'الثانية باك علوم الحياة والأرض دولي خيار فرنسي',kids:false},
+  {id:'2BSMA',ar:'علوم رياضية أ',fr:'Sc. Maths A',g:'الثانية باك علوم رياضية أ دولي خيار فرنسي',kids:false},
+  {id:'2BSMB',ar:'علوم رياضية ب',fr:'Sc. Maths B',g:'الثانية باك علوم رياضية ب دولي خيار فرنسي',kids:false},
+  {id:'2BSTE',ar:'علوم وتكنولوجيا كهربائية',fr:'STE',g:'الثانية باك علوم وتكنولوجيا كهربائية دولي',kids:false},
+  {id:'2BSTM',ar:'علوم وتكنولوجيا ميكانيكية',fr:'STM',g:'الثانية باك علوم وتكنولوجيا ميكانيكية دولي',kids:false},
+  {id:'2BECO',ar:'علوم اقتصادية',fr:'Sc. Éco',g:'الثانية باك علوم اقتصادية دولي خيار فرنسي',kids:false},
+  {id:'2BLSH',ar:'آداب وعلوم إنسانية',fr:'Lettres & SH',g:'الثانية باك آداب وعلوم إنسانية',kids:false}
+ ]}
+];
+let PIO_CAT=0;
+function buildPionniere(){
+  const cb=document.getElementById('cats-pionniere'); let c='';
+  GRADES.forEach((g,i)=>{ c+='<button class="catbtn'+(i===0?' on':'')+'" data-c="'+i+'">'+g.cat+'</button>'; });
+  cb.innerHTML=c;
+  cb.querySelectorAll('.catbtn').forEach(b=>b.onclick=()=>{ PIO_CAT=+b.dataset.c; cb.querySelectorAll('.catbtn').forEach(x=>x.classList.remove('on')); b.classList.add('on'); buildPioTabs(); });
+  buildPioTabs();
+}
+function buildPioTabs(){
+  const t=document.getElementById('tabs-pionniere'); const items=GRADES[PIO_CAT].items; let h='';
+  items.forEach((it,i)=>{ h+='<div class="tab'+(i===0?' on':'')+'" data-i="'+i+'">'+it.ar+' · '+it.fr+'</div>'; });
+  t.innerHTML=h;
+  t.querySelectorAll('.tab').forEach(tab=>tab.onclick=()=>{ t.querySelectorAll('.tab').forEach(x=>x.classList.remove('on')); tab.classList.add('on'); renderPio(items[+tab.dataset.i]); });
+  renderPio(items[0]);
+}
+function renderPio(g){
+  const data=CURR[g.id]||{}; let h='';
+  for(const key in data){ const p=key.split('|'); const sar=p[0],sfr=p[1],emo=p[2];
+    h+='<div class="subject"><h3>'+emo+' '+sar+' <span class="fr">'+sfr+'</span></h3><div class="lessons">';
+    data[key].forEach(l=>{ h+=lessonCard(l[0],sfr,l[1], sar+' '+l[0]+' '+g.g, sar, g.kids); });
+    h+='</div></div>';
+  }
+  if(!h) h='<p style="color:#9fd9ff;padding:14px">جارٍ إضافة المحتوى…</p>';
+  document.getElementById('content-pionniere').innerHTML=h;
+}
+Object.assign(CURR,{
+C1:{
+'اللغة العربية|Arabe|📖':[['أقسام الكلام','الاسم والفعل والحرف وعلامات كل قسم.'],['الجملة الفعلية','الفعل والفاعل والمفعول به.'],['الدرس القرائي','نصوص وظيفية وأدبية مع الفهم.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Le conte','Lire et comprendre un conte merveilleux.'],['Les types de phrases','Déclarative, interrogative, exclamative, impérative.'],['Le présent de l\'indicatif','Conjugaison des verbes au présent.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Greetings & Introductions','Say hello and introduce yourself.'],['Present Simple','Daily routines and habits.']],
+'الرياضيات|Maths|🔢':[['Les entiers naturels','الأعداد الصحيحة الطبيعية والعمليات.'],['Les nombres décimaux','الأعداد العشرية والعمليات عليها.'],['Les fractions','مفهوم الكسر وتبسيطه.'],['La symétrie axiale','التماثل المحوري والإنشاءات الهندسية.']],
+'علوم الحياة والأرض|SVT|🧠':[['La nutrition','التغذية عند الإنسان والأغذية.'],['La respiration','التنفس عند الإنسان والحيوان.'],['L\'environnement','العلاقات الغذائية في الأوساط الطبيعية.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الحضارات القديمة','مصر وبلاد الرافدين.'],['قراءة الخريطة','الخريطة ورموزها ومقياس الرسم.'],['التربية على المواطنة','الحقوق والواجبات.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القرآن الكريم','سور وآيات مع التجويد.'],['العقيدة والعبادات','أركان الإسلام والإيمان.']],
+'المعلوميات|Informatique|💻':[['مكونات الحاسوب','العتاد والبرمجيات.'],['نظام التشغيل','التعامل مع الملفات والمجلدات.']]
+},
+C2:{
+'اللغة العربية|Arabe|📖':[['الجملة الاسمية','المبتدأ والخبر.'],['المفاعيل','المفعول المطلق ولأجله وفيه.'],['النص الحجاجي','تحليل نص واستخراج أفكاره.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Le récit de vie','Raconter un événement vécu.'],['L\'imparfait & le passé composé','Les temps du récit au passé.'],['Le portrait','Décrire une personne physiquement et moralement.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Past Simple','Talking about past events.'],['Countable & Uncountable','Food and quantities.']],
+'الرياضيات|Maths|🔢':[['Les nombres relatifs','الأعداد النسبية والعمليات.'],['La proportionnalité','التناسبية والنسبة المئوية.'],['Le théorème de Thalès','مبرهنة طالس وتطبيقاتها.'],['Aires et volumes','المساحات والحجوم.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['L\'électricité','الدارة الكهربائية البسيطة.'],['La matière','حالات المادة وتحولاتها.']],
+'علوم الحياة والأرض|SVT|🧠':[['La classification','تصنيف الكائنات الحية.'],['Les séismes & volcans','الظواهر الجيولوجية.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الحضارة الإسلامية','الدولة العربية الإسلامية.'],['المجال المغربي','التضاريس والمناخ.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القرآن الكريم','حفظ وتفسير آيات.'],['القيم الإسلامية','الصدق والأمانة.']]
+},
+C3:{
+'اللغة العربية|Arabe|📖':[['النواسخ','كان وأخواتها وإن وأخواتها.'],['البلاغة','التشبيه والاستعارة.'],['التعبير والإنشاء','كتابة موضوع مترابط.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Le texte argumentatif','Défendre une opinion avec des arguments.'],['Le futur simple','Conjugaison et emploi du futur.'],['La nouvelle réaliste','قراءة وتحليل نص سردي.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Future (will / going to)','Making predictions and plans.'],['Comparatives','Comparing people and things.']],
+'الرياضيات|Maths|🔢':[['Le calcul littéral','الحساب الحرفي والنشر والتعميل.'],['Équations du 1er degré','المعادلات من الدرجة الأولى.'],['Théorème de Pythagore','مبرهنة فيثاغورس.'],['Trigonométrie','النسب المثلثية.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['La lumière','الضوء والرؤية.'],['Les circuits','التوتر والتيار الكهربائي.'],['Les molécules','الذرات والجزيئات.']],
+'علوم الحياة والأرض|SVT|🧠':[['La reproduction humaine','التكاثر عند الإنسان.'],['La géologie','سلسلة الجبال وتشكلها.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الحرب العالمية','الحربان العالميتان.'],['التنمية','التنمية البشرية والمستدامة.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['المعاملات','الأخلاق في المعاملات.'],['السيرة','محطات من السيرة النبوية.']]
+}
+});
+Object.assign(CURR,{
+TCS:{
+'الرياضيات|Maths|🔢':[['Ensembles de nombres','مجموعات الأعداد N Z Q R.'],['Calcul vectoriel','الحساب المتجهي في المستوى.'],['La projection','الإسقاط والمعادلة الديكارتية.'],['Généralités sur les fonctions','عموميات حول الدوال.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['La gravitation universelle','التجاذب الكوني.'],['Les mouvements','حركة الأجسام.'],['Modèle de l\'atome','نموذج الذرة والتصنيف الدوري.'],['La mole','المول والكمية المادية.']],
+'علوم الحياة والأرض|SVT|🧠':[['Écologie','البيئة والتوازنات الطبيعية.'],['Géologie','ظواهر جيولوجية خارجية.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Le Dernier Jour d\'un Condamné','مؤلف فيكتور هوغو.'],['Le registre tragique','دراسة النصوص.'],['L\'essai','كتابة نص حجاجي.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Present Perfect','Life experiences.'],['Giving opinions','Agreeing and disagreeing.']],
+'اللغة العربية|Arabe|📖':[['المنهج التاريخي','مناهج دراسة الأدب.'],['النص الشعري','تحليل قصيدة.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['العالم المتوسطي','التبادلات والحضارات.'],['النظام البيئي','المجال والموارد.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','حقوق الإنسان في الإسلام.']],
+'المعلوميات|Informatique|💻':[['Algorithmique','مبادئ الخوارزميات.'],['Tableur','الجداول الممعلمة.']]
+},
+TCT:{
+'الرياضيات|Maths|🔢':[['Calcul numérique','الحساب العددي.'],['Géométrie','الهندسة المستوية.'],['Les fonctions','دراسة الدوال.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Électricité','التيار الكهربائي المستمر.'],['Mécanique','القوى والحركة.']],
+'التكنولوجيا|Technologie|⚙️':[['Lecture de dessin','قراءة الرسم التقني.'],['Les matériaux','خصائص المواد.'],['Fonction technique','الوظائف التقنية للمنتوج.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Compréhension','فهم النصوص.'],['Production écrite','التعبير الكتابي.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Technical English','Vocabulary for technology.']],
+'اللغة العربية|Arabe|📖':[['النصوص','دراسة نصوص وظيفية.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','العمل والإتقان.']]
+}
+});
+Object.assign(CURR,{
+'1BSE':{
+'الرياضيات|Maths|🔢':[['Barycentre','المرجح في المستوى.'],['Produit scalaire','الجداء السلمي.'],['Suites numériques','المتتاليات العددية.'],['Limites de fonctions','نهايات الدوال.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Travail et puissance','الشغل والقدرة.'],['Énergie','الطاقة الحركية والوضع.'],['La chimie organique','مدخل للكيمياء العضوية.']],
+'علوم الحياة والأرض|SVT|🧠':[['Génique & information','التشريح والوظائف.'],['Énergie des êtres vivants','استهلاك المادة العضوية.']],
+'اللغة الفرنسية|Français|🇫🇷':[['La Boîte à Merveilles','مؤلف أحمد سفريوي.'],['Antigone','مسرحية جان أنوي.'],['Le Dernier Jour d\'un Condamné','دراسة المؤلف.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Conditionals','Type 0, 1, 2.'],['Reported speech','Reporting statements.']],
+'اللغة العربية|Arabe|📖':[['النصوص','تحليل نصوص أدبية.']],
+'الفلسفة|Philosophie|🧩':[['ما الفلسفة؟','نشأة الفلسفة ومفهومها.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الثورات','الثورة الصناعية.']]
+},
+'1BSM':{
+'الرياضيات|Maths|🔢':[['Logique','المنطق الرياضي.'],['Suites','المتتاليات.'],['Trigonométrie','الدوال المثلثية.'],['Dérivation','الاشتقاق وتطبيقاته.'],['Produit scalaire','الجداء السلمي.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Mécanique','الميكانيك والطاقة.'],['Électricité','ثنائي القطب RC.'],['Chimie','القياسات في الكيمياء.']],
+'علوم الحياة والأرض|SVT|🧠':[['Géologie','الظواهر الجيولوجية.']],
+'اللغة الفرنسية|Français|🇫🇷':[['La Boîte à Merveilles','دراسة المؤلف.'],['Antigone','دراسة المسرحية.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Conditionals','If-clauses.']],
+'الفلسفة|Philosophie|🧩':[['نشأة الفلسفة','الفلسفة والعلم.']]
+},
+'1BST':{
+'الرياضيات|Maths|🔢':[['Calcul vectoriel','الحساب المتجهي.'],['Fonctions','دراسة الدوال.'],['Dérivation','الاشتقاق.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Électricité','التيار المتناوب.'],['Mécanique','الحركة والقوى.']],
+'علوم المهندس|Sciences de l\'Ingénieur|⚙️':[['Analyse fonctionnelle','التحليل الوظيفي للنظام.'],['Chaîne d\'énergie','سلسلة الطاقة والمعلومة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Technical English','مصطلحات تقنية.']],
+'الفلسفة|Philosophie|🧩':[['مدخل','ما الفلسفة؟']]
+},
+'1BECO':{
+'الاقتصاد والتنظيم|Économie|💹':[['المشكلة الاقتصادية','الحاجات والموارد.'],['المؤسسة','تصنيف المؤسسات.'],['السوق','العرض والطلب.']],
+'المحاسبة|Comptabilité|📊':[['الميزانية','الميزانية العمومية.'],['الفاتورة','إعداد الفواتير.']],
+'الرياضيات|Maths|🔢':[['Fonctions','الدوال والنهايات.'],['Suites','المتتاليات.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Business English','مصطلحات اقتصادية.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['العولمة','المبادلات العالمية.']]
+},
+'1BLSH':{
+'اللغة العربية|Arabe|📖':[['النص الشعري','الشعر العربي الحديث.'],['النص النثري','تحليل النصوص.'],['التعبير','المهارات الكتابية.']],
+'اللغة الفرنسية|Français|🇫🇷':[['La Boîte à Merveilles','دراسة المؤلف.'],['Antigone','دراسة المسرحية.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Reading','Comprehension skills.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الحرب العالمية الأولى','الأسباب والنتائج.'],['المجال العالمي','التنظيم المجالي.']],
+'الفلسفة|Philosophie|🧩':[['نشأة الفلسفة','التفكير الفلسفي.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','الحرية والمسؤولية.']]
+}
+});
+Object.assign(CURR,{
+'2BPC':{
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Ondes','الموجات الميكانيكية.'],['Électricité RC/RL/RLC','ثنائيات القطب.'],['Transformations nucléaires','التحولات النووية.'],['Cinétique chimique','التطور الزمني لتفاعل كيميائي.'],['Acides et bases','الأحماض والقواعد.']],
+'الرياضيات|Maths|🔢':[['Continuité','اتصال دالة.'],['Dérivabilité','الاشتقاق ودراسة الدوال.'],['Fonction logarithme','دالة لوجاريتم.'],['Fonction exponentielle','الدالة الأسية.'],['Intégrales','الحساب التكاملي.']],
+'علوم الحياة والأرض|SVT|🧠':[['Géologie','تاريخ الأرض.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Il était une fois un vieux couple heureux','مؤلف محمد خير الدين.'],['Le Président','مسرحية.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Passive voice','The passive form.']],
+'الفلسفة|Philosophie|🧩':[['الشخص','مجزوءة الوضع البشري.'],['الغير','وجود الغير.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','الوسطية والاعتدال.']]
+},
+'2BSVT':{
+'علوم الحياة والأرض|SVT|🧠':[['Consommation de matière','استهلاك المادة العضوية.'],['Génétique','علم الوراثة.'],['Immunologie','المناعة.'],['Géologie','الظواهر الجيولوجية والتكتونية.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Ondes','الموجات.'],['Électricité','RC و RL و RLC.'],['Chimie','التفاعلات الكيميائية.']],
+'الرياضيات|Maths|🔢':[['Fonctions','اللوغاريتم والأسي.'],['Probabilités','الاحتمالات.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Writing','Essay writing.']],
+'الفلسفة|Philosophie|🧩':[['النظرية والتجريب','مجزوءة المعرفة.']]
+},
+'2BSMA':{
+'الرياضيات|Maths|🔢':[['Limites et continuité','النهايات والاتصال.'],['Dérivation','الاشتقاق.'],['Logarithme & exponentielle','الدوال اللوغاريتمية والأسية.'],['Nombres complexes','الأعداد العقدية.'],['Structures algébriques','البنيات الجبرية.'],['Intégrales','التكامل.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Mécanique de Newton','قوانين نيوتن.'],['Électricité','الدارات الكهربائية.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'الفلسفة|Philosophie|🧩':[['المعرفة','مجزوءة المعرفة.']]
+},
+'2BSMB':{
+'الرياضيات|Maths|🔢':[['Arithmétique','الحسابيات.'],['Nombres complexes','الأعداد العقدية.'],['Intégrales','التكامل.'],['Équations différentielles','المعادلات التفاضلية.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Ondes','الموجات.'],['Mécanique','الميكانيك.']],
+'المعلوميات|Informatique|💻':[['Programmation','مبادئ البرمجة (Python).'],['Algorithmique','الخوارزميات المتقدمة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'الفلسفة|Philosophie|🧩':[['السياسة','مجزوءة السياسة.']]
+}
+});
+Object.assign(CURR,{
+'2BSTE':{
+'الهندسة الكهربائية|Génie Électrique|⚡':[['Systèmes logiques','الأنظمة المنطقية.'],['Moteurs électriques','المحركات الكهربائية.'],['Automatismes','الأنظمة المؤتمتة.']],
+'الرياضيات|Maths|🔢':[['Fonctions','دراسة الدوال.'],['Intégrales','التكامل.'],['Équations différentielles','المعادلات التفاضلية.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Électricité','التيار المتناوب.'],['Mécanique','الميكانيك.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'الفلسفة|Philosophie|🧩':[['مدخل','الوضع البشري.']]
+},
+'2BSTM':{
+'الهندسة الميكانيكية|Génie Mécanique|⚙️':[['Dessin technique','الرسم الصناعي.'],['Résistance des matériaux','مقاومة المواد.'],['Cinématique','الحركيات.']],
+'الرياضيات|Maths|🔢':[['Fonctions','دراسة الدوال.'],['Intégrales','التكامل.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Mécanique','القوى والحركة.'],['Énergétique','الطاقة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'الفلسفة|Philosophie|🧩':[['مدخل','الوضع البشري.']]
+},
+'2BECO':{
+'الاقتصاد العام|Économie Générale|💹':[['النمو الاقتصادي','مؤشرات النمو.'],['التضخم والبطالة','المشاكل الاقتصادية.'],['المبادلات الخارجية','التجارة الدولية.']],
+'المحاسبة والرياضيات المالية|Comptabilité|📊':[['القوائم المالية','الميزانية وحساب النتيجة.'],['الفائدة','الفائدة البسيطة والمركبة.']],
+'الرياضيات|Maths|🔢':[['Fonctions','الدوال والنهايات.'],['Probabilités','الاحتمالات والإحصاء.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'الفلسفة|Philosophie|🧩':[['الأخلاق','مجزوءة الأخلاق.']]
+},
+'2BLSH':{
+'اللغة العربية|Arabe|📖':[['إحياء النموذج','الشعر العربي الحديث.'],['تكسير البنية','التجريب الشعري.'],['القصة والمسرحية','الفنون النثرية.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص والغير.'],['المعرفة','النظرية والتجريب.'],['السياسة','الدولة والعنف.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الحرب العالمية الثانية','الأسباب والنتائج.'],['المغرب المستقل','بناء الدولة الحديثة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Writing & Reading','Comprehension and essays.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','العدل والتسامح.']]
+}
+});
+const ROADMAP=[
+['الأساسيات والحاسوب','تعلّم مكوّنات الحاسوب وأنظمة التشغيل (Windows / Linux) وكيف تعمل.'],
+['الشبكات Networking','افهم بروتوكولات TCP/IP وDNS وHTTP والمنافذ وكيف تنتقل البيانات.'],
+['نظام لينكس Linux','أتقن أوامر الطرفية وإدارة الملفات والصلاحيات على Kali Linux.'],
+['البرمجة والسكربتات','تعلّم Python وBash لأتمتة المهام وفهم الثغرات.'],
+['أمن المعلومات','مبادئ السرية والسلامة والتوافر (CIA) والتشفير وحماية الحسابات.'],
+['اختبار الاختراق','ابدأ التطبيق العملي على مختبرات قانونية مثل TryHackMe وHackTheBox.']
+];
+const PHASES=[
+['الاستطلاع|Reconnaissance','جمع المعلومات عن الهدف (OSINT، النطاقات، المنافذ) قبل أي اختبار.'],
+['الفحص|Scanning','استكشاف الخدمات والمنافذ والثغرات باستعمال أدوات الفحص.'],
+['الاستغلال|Exploitation','استغلال الثغرة للوصول — في بيئة مصرّح بها قانونياً فقط.'],
+['ما بعد الاستغلال|Post-Exploitation','تقييم حجم الخطر وجمع الأدلة.'],
+['التقرير|Reporting','توثيق الثغرات واقتراح الحلول — أهم مرحلة في العمل الاحترافي.']
+];
+const TOOLS=[
+['Kali Linux','توزيعة لينكس مخصّصة لاختبار الاختراق تحتوي مئات الأدوات الجاهزة.'],
+['Nmap','أداة فحص الشبكات واكتشاف المنافذ والخدمات وأنظمة التشغيل.'],
+['Wireshark','محلّل حزم الشبكة لمراقبة وتحليل حركة المرور (Packets).'],
+['Metasploit','إطار عمل لاختبار الثغرات وتنفيذ الاختبارات المصرّح بها.'],
+['Burp Suite','أداة اختبار أمان تطبيقات الويب واعتراض الطلبات.'],
+['John the Ripper','أداة لاختبار قوة كلمات المرور (Password cracking).'],
+['Hydra','اختبار قوة بيانات الدخول على بروتوكولات متعددة.'],
+['SQLmap','كشف واستغلال ثغرات حقن SQL في قواعد البيانات.'],
+['Nikto','فحص خوادم الويب عن الثغرات والإعدادات الخاطئة.'],
+['Aircrack-ng','تقييم أمان الشبكات اللاسلكية Wi-Fi.']
+];
+function renderCyberFull(){
+  let h='';
+  h+='<div class="subject cyber-sub"><h3>🚀 كيف تبدأ طريقك في الأمن السيبيراني من الصفر <span class="fr">De zéro à pro</span></h3><div class="roadmap">';
+  ROADMAP.forEach((s,i)=>{ h+='<div class="step"><div class="sn">'+(i+1)+'</div><div class="st">'+s[0]+'</div><div class="sd">'+s[1]+'</div></div>'; });
+  h+='</div></div>';
+  h+='<div class="notice" style="border-color:rgba(255,45,85,.5);background:linear-gradient(135deg,rgba(255,45,85,.12),rgba(10,15,40,.5))"><div class="nt" style="color:#ff8aa0">⚠️ تنبيه أخلاقي وقانوني</div><div class="nd">اختبار الاختراق يُمارَس فقط على أنظمة تملكها أو لديك إذن مكتوب باختبارها. التعلّم يكون عبر مختبرات قانونية (TryHackMe · HackTheBox). الاختراق غير المصرّح به جريمة يعاقب عليها القانون.</div></div>';
+  h+='<div class="subject cyber-sub"><h3>🛡️ المسار التمهيدي للمبتدئين <span class="fr">Initiation</span></h3><div class="lessons">';
+  CYBER.forEach(c=>{ const p=c[0].split('|'); h+=lessonCard(p[0],p[1],c[1], p[0]+' أمن سيبيراني للمبتدئين', 'الأمن السيبيراني', false); });
+  h+='</div></div>';
+  h+='<div class="subject cyber-sub"><h3>🎯 مراحل اختبار الاختراق <span class="fr">Pentesting</span></h3><div class="lessons">';
+  PHASES.forEach(c=>{ const p=c[0].split('|'); h+=lessonCard(p[0],p[1],c[1], p[0]+' اختبار الاختراق شرح', 'الأمن السيبيراني', false); });
+  h+='</div></div>';
+  h+='<div class="subject cyber-sub"><h3>🧰 أدوات اختبار الاختراق <span class="fr">Pentest Tools</span></h3><div class="lessons">';
+  TOOLS.forEach(t=>{ h+=lessonCard(t[0],'',t[1], t[0]+' شرح اختبار الاختراق', 'الأمن السيبيراني', false, 'tool'); });
+  h+='</div></div>';
+  document.getElementById('content-cyber').innerHTML=h;
+}
+buildPionniere(); renderCyberFull();
+</script></body></html>
