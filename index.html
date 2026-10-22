@@ -182,12 +182,43 @@ body.light .stars,body.light .stars2{opacity:.15}
 body.light .orb{opacity:.25}
 body.light .theme-toggle{color:#0b63b0}
 body.light footer{background:rgba(255,255,255,.6)}
+/* ===== PRO VERSION LOGIN ===== */
+.prologin{position:fixed;top:14px;right:14px;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:8px;font-family:'Cairo',sans-serif}
+.pro-btn{cursor:pointer;display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,#ffd35c,#ff9f1c);border:1px solid rgba(255,211,92,.7);color:#2a1800;border-radius:999px;padding:8px 14px;font-weight:800;font-size:13px;box-shadow:0 0 20px rgba(255,211,92,.45);transition:.25s}
+.pro-btn:hover{transform:translateY(-2px);box-shadow:0 0 28px rgba(255,211,92,.7)}
+.pro-btn .fr{font-family:'Orbitron',sans-serif;font-size:10px;opacity:.85}
+.pro-badge{display:none;align-items:center;gap:7px;background:linear-gradient(135deg,#1ddb7a,#0fae5e);border:1px solid rgba(29,219,122,.7);color:#042814;border-radius:999px;padding:8px 14px;font-weight:900;font-size:13px;box-shadow:0 0 22px rgba(29,219,122,.55);animation:pulseGlow 3s ease-in-out infinite}
+.pro-badge .fr{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:600;opacity:.9}
+.pro-panel{display:none;flex-direction:column;gap:10px;width:260px;background:linear-gradient(135deg,rgba(25,231,255,.12),rgba(10,15,40,.92));border:1px solid rgba(255,211,92,.5);border-radius:16px;padding:16px;box-shadow:0 10px 40px rgba(0,0,0,.5);backdrop-filter:blur(10px)}
+.pro-panel.open{display:flex;animation:fadeIn .3s ease}
+.pro-title{color:#ffd35c;font-size:14px;font-weight:800;text-align:center;line-height:1.5}
+.pro-title small{display:block;font-family:'Orbitron',sans-serif;font-size:9px;color:#9fd9ff;font-weight:400;margin-top:3px}
+.pro-inp{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1px solid rgba(25,231,255,.4);background:rgba(5,12,30,.7);color:#fff;font-family:'Cairo';font-size:14px;outline:none;text-align:right}
+.pro-inp:focus{border-color:#ffd35c;box-shadow:0 0 10px rgba(255,211,92,.3)}
+.pro-submit{cursor:pointer;border:none;border-radius:10px;padding:11px;font-family:'Cairo';font-size:15px;font-weight:800;color:#2a1800;background:linear-gradient(135deg,#ffd35c,#ff9f1c);box-shadow:0 4px 14px rgba(255,211,92,.4);transition:.2s}
+.pro-submit:hover{transform:translateY(-2px)}
+.pro-msg{font-size:12.5px;text-align:center;line-height:1.6;min-height:1px}
+.pro-msg.ok{color:#5effa8;font-weight:800}
+.pro-msg.err{color:#ff8aa0;font-weight:700}
+@media(max-width:560px){.pro-panel{width:220px}.pro-btn,.pro-badge{font-size:12px;padding:7px 11px}}
 </style></head>
 <body>
 <div class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع الليلي / النهاري">
   <span class="ic" id="themeIcon">🌙</span>
   <div class="sw"></div>
   <span id="themeTxt">NIGHT</span>
+</div>
+<!-- PRO VERSION LOGIN (top-right) -->
+<div class="prologin">
+  <button class="pro-btn" id="proBtn">🔓 <span class="ar">تسجيل الدخول لنسخة البرو</span> <span class="fr">Pro</span></button>
+  <div class="pro-badge" id="proBadge">⭐ <span class="ar">نسخة البرو</span> <span class="fr">Version Pro</span></div>
+  <div class="pro-panel" id="proPanel">
+    <div class="pro-title">🔐 تسجيل الدخول إلى نسخة البرو<small>Connexion à la version Pro</small></div>
+    <input class="pro-inp" id="proEmail" type="text" autocomplete="off" placeholder="📧 البريد / Email">
+    <input class="pro-inp" id="proPass" type="password" autocomplete="off" placeholder="🔑 رمز الدخول / Code">
+    <button class="pro-submit" id="proSubmit">دخول · Se connecter</button>
+    <div class="pro-msg" id="proMsg"></div>
+  </div>
 </div>
 <div class="stars"></div><div class="stars2"></div>
 <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
@@ -380,9 +411,10 @@ body.light footer{background:rgba(255,255,255,.6)}
   <!-- PRIVEE -->
   <section id="privee">
     <div class="sec-head">
-      <div><h2>المدرسة الخصوصية <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">École Privée</span></h2><div class="city">📚 المستويات من 1 إلى 6 · Niveaux 1 à 6</div></div>
+      <div><h2>المدرسة الخصوصية <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">École Privée</span></h2><div class="city">📚 من الأول ابتدائي إلى الثانية باكالوريا · Du primaire au Bac</div></div>
       <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
     </div>
+    <div class="cats" id="cats-privee"></div>
     <div class="tabs" id="tabs-privee"></div>
     <div id="content-privee"></div>
   </section>
@@ -610,7 +642,7 @@ function renderCyber(){
   h+='</div></div>';
   document.getElementById('content-cyber').innerHTML=h;
 }
-buildTabs('privee');
+/* buildTabs('privee') — استُبدل بـ buildGraded('privee',GRADES_ALL) أدناه */
 </script>
 <script>
 /* ===== المستويات الكاملة للمدرسة الرائدة (مسار دولي · خيار فرنسي) ===== */
@@ -652,6 +684,7 @@ const GRADES_LY=[
   {id:'2BLSH',ar:'آداب وعلوم إنسانية',fr:'Lettres & SH',g:'الثانية باك آداب وعلوم إنسانية',kids:false}
  ]}
 ];
+const GRADES_ALL=GRADES.concat(GRADES_LY);
 function buildGraded(where,grades){
   const cb=document.getElementById('cats-'+where); const st={cur:0}; let c='';
   grades.forEach((g,i)=>{ c+='<button class="catbtn'+(i===0?' on':'')+'" data-c="'+i+'">'+g.cat+'</button>'; });
@@ -1049,5 +1082,28 @@ ALL.forEach(function(id){ if(CURR[id]&&!CURR[id][kEps]) CURR[id][kEps]=EPS.slice
 ['C2','C3'].forEach(function(id){ if(CURR[id]&&!CURR[id][kInfo]) CURR[id][kInfo]=INFO.slice(); });
 ['L1','L2','L3','L4'].forEach(function(id){ if(CURR[id]&&!CURR[id][kEng]) CURR[id][kEng]=ENGK.slice(); });
 })();
-buildGraded('pionniere',GRADES); buildGraded('lycee',GRADES_LY); renderCyberFull();
+/* ===== تسجيل الدخول إلى نسخة البرو ===== */
+(function(){
+  var PRO_EMAIL='profcyber@iCloud.bat', PRO_PASS='3121';
+  var btn=document.getElementById('proBtn'), panel=document.getElementById('proPanel'),
+      badge=document.getElementById('proBadge'), submit=document.getElementById('proSubmit'),
+      msg=document.getElementById('proMsg');
+  function activatePro(){ badge.style.display='inline-flex'; btn.style.display='none'; panel.classList.remove('open'); }
+  try{ if(localStorage.getItem('proVersion')==='1') activatePro(); }catch(e){}
+  if(btn) btn.addEventListener('click',function(){ panel.classList.toggle('open'); });
+  if(submit) submit.addEventListener('click',function(){
+    var e=(document.getElementById('proEmail').value||'').trim();
+    var p=(document.getElementById('proPass').value||'').trim();
+    if(e===PRO_EMAIL && p===PRO_PASS){
+      msg.className='pro-msg ok';
+      msg.textContent='🎉 تهانينا! تم تسجيلك في نسخة البرو · Félicitations, vous êtes inscrit à la version Pro';
+      try{ localStorage.setItem('proVersion','1'); }catch(e2){}
+      setTimeout(activatePro,1600);
+    } else {
+      msg.className='pro-msg err';
+      msg.textContent='⚠️ بيانات الدخول غير صحيحة · Identifiants incorrects';
+    }
+  });
+})();
+buildGraded('pionniere',GRADES); buildGraded('lycee',GRADES_LY); buildGraded('privee',GRADES_ALL); renderCyberFull();
 </script></body></html>
