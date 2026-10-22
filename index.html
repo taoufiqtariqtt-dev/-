@@ -65,6 +65,8 @@ body{
 .navbtn.pri{box-shadow:0 0 30px rgba(29,219,122,.22);border-color:rgba(29,219,122,.5)}
 .navbtn.pri:hover{box-shadow:0 0 45px rgba(29,219,122,.5)}
 .navbtn.cyb{background:linear-gradient(135deg,rgba(255,45,85,.22),rgba(120,0,30,.3));border-color:rgba(255,45,85,.7);box-shadow:0 0 32px rgba(255,45,85,.35);animation:redpulse 2.4s ease-in-out infinite}
+.navbtn.lyc{box-shadow:0 0 30px rgba(170,120,255,.28);border-color:rgba(170,120,255,.6)}
+.navbtn.lyc:hover{box-shadow:0 0 46px rgba(170,120,255,.6)}
 @keyframes redpulse{0%,100%{box-shadow:0 0 25px rgba(255,45,85,.35)}50%{box-shadow:0 0 50px rgba(255,45,85,.75)}}
 /* ===== SECTIONS ===== */
 section{display:none;animation:fadeIn .5s ease}
@@ -169,14 +171,9 @@ body.light footer{background:rgba(255,255,255,.6)}
       <div class="id-badge"><div class="role">DEVELOPER</div><div class="nm">Adam Tariq — آدم طارق</div><div class="frn">المطوّر والمشرف العام</div></div>
       <div class="id-badge assist"><div class="role">ASSISTANT</div><div class="nm">Professeur Ismaël</div><div class="frn">الأستاذ إسماعيل · المساعد</div></div>
     </div>
-    <div class="notice">
-      <div class="nt">📢 تنويه هام · Annonce importante</div>
-      <div class="nd">المدرسة الرائدة أصبحت الآن تضمّ جميع المستويات: الابتدائي والإعدادي والثانوي التأهيلي (الجذع المشترك العلمي والتكنولوجي TCT، الأولى باكالوريا بجميع الشعب، والثانية باكالوريا بجميع الشعب). جميع المستويات تُدرّس وفق المسار الدولي — خيار فرنسي.
-        <span class="nf">École Pionnière inclut désormais tous les niveaux (Primaire · Collège · Lycée) — Option Internationale Française.</span>
-      </div>
-    </div>
     <div class="btn-grid">
       <button class="navbtn pio" onclick="go('pionniere')"><span class="ic">🏫</span><span class="ar">المدرسة الرائدة</span><span class="fr">ÉCOLE PIONNIÈRE · LARACHE</span></button>
+      <button class="navbtn lyc" onclick="go('lycee')"><span class="ic">🏛️</span><span class="ar">الثانوية التأهيلية</span><span class="fr">LYCÉE · OPTION FRANÇAISE</span></button>
       <button class="navbtn pri" onclick="go('privee')"><span class="ic">🎓</span><span class="ar">المدرسة الخصوصية</span><span class="fr">ÉCOLE PRIVÉE</span></button>
       <button class="navbtn cyb" onclick="goCyber()"><span class="ic">🛡️🔒</span><span class="ar">خاص بطلاب الأمن السيبراني</span><span class="fr">RÉSERVÉ · CYBERSÉCURITÉ</span></button>
     </div>
@@ -185,12 +182,23 @@ body.light footer{background:rgba(255,255,255,.6)}
   <!-- PIONNIERE -->
   <section id="pionniere">
     <div class="sec-head">
-      <div><h2>المدرسة الرائدة <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">École Pionnière</span></h2><div class="city">📍 بمدينة العرائش · Ville de Larache</div></div>
+      <div><h2>المدرسة الرائدة <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">École Pionnière</span></h2><div class="city">📍 بمدينة العرائش · الابتدائي والإعدادي</div></div>
       <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
     </div>
     <div class="cats" id="cats-pionniere"></div>
     <div class="tabs" id="tabs-pionniere"></div>
     <div id="content-pionniere"></div>
+  </section>
+
+  <!-- LYCEE -->
+  <section id="lycee">
+    <div class="sec-head">
+      <div><h2>الثانوية التأهيلية <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">Lycée</span></h2><div class="city">🎓 الجذع المشترك · الأولى والثانية باك · خيار فرنسي</div></div>
+      <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
+    </div>
+    <div class="cats" id="cats-lycee"></div>
+    <div class="tabs" id="tabs-lycee"></div>
+    <div id="content-lycee"></div>
   </section>
 
   <!-- PRIVEE -->
@@ -368,7 +376,9 @@ const GRADES=[
   {id:'C1',ar:'الأولى إعدادي',fr:'1ère AC',g:'الأولى إعدادي دولي خيار فرنسي',kids:false},
   {id:'C2',ar:'الثانية إعدادي',fr:'2ème AC',g:'الثانية إعدادي دولي خيار فرنسي',kids:false},
   {id:'C3',ar:'الثالثة إعدادي',fr:'3ème AC',g:'الثالثة إعدادي دولي خيار فرنسي',kids:false}
- ]},
+ ]}
+];
+const GRADES_LY=[
  {cat:'🎓 الجذع المشترك · Tronc Commun', items:[
   {id:'TCS',ar:'جذع مشترك علمي (خيار فرنسي)',fr:'TC Sciences',g:'الجذع المشترك العلمي خيار فرنسي',kids:false},
   {id:'TCT',ar:'جذع مشترك تكنولوجي TCT',fr:'TC Technologique',g:'الجذع المشترك التكنولوجي TCT خيار فرنسي',kids:false}
@@ -391,30 +401,29 @@ const GRADES=[
   {id:'2BLSH',ar:'آداب وعلوم إنسانية',fr:'Lettres & SH',g:'الثانية باك آداب وعلوم إنسانية',kids:false}
  ]}
 ];
-let PIO_CAT=0;
-function buildPionniere(){
-  const cb=document.getElementById('cats-pionniere'); let c='';
-  GRADES.forEach((g,i)=>{ c+='<button class="catbtn'+(i===0?' on':'')+'" data-c="'+i+'">'+g.cat+'</button>'; });
+function buildGraded(where,grades){
+  const cb=document.getElementById('cats-'+where); const st={cur:0}; let c='';
+  grades.forEach((g,i)=>{ c+='<button class="catbtn'+(i===0?' on':'')+'" data-c="'+i+'">'+g.cat+'</button>'; });
   cb.innerHTML=c;
-  cb.querySelectorAll('.catbtn').forEach(b=>b.onclick=()=>{ PIO_CAT=+b.dataset.c; cb.querySelectorAll('.catbtn').forEach(x=>x.classList.remove('on')); b.classList.add('on'); buildPioTabs(); });
-  buildPioTabs();
-}
-function buildPioTabs(){
-  const t=document.getElementById('tabs-pionniere'); const items=GRADES[PIO_CAT].items; let h='';
-  items.forEach((it,i)=>{ h+='<div class="tab'+(i===0?' on':'')+'" data-i="'+i+'">'+it.ar+' · '+it.fr+'</div>'; });
-  t.innerHTML=h;
-  t.querySelectorAll('.tab').forEach(tab=>tab.onclick=()=>{ t.querySelectorAll('.tab').forEach(x=>x.classList.remove('on')); tab.classList.add('on'); renderPio(items[+tab.dataset.i]); });
-  renderPio(items[0]);
-}
-function renderPio(g){
-  const data=CURR[g.id]||{}; let h='';
-  for(const key in data){ const p=key.split('|'); const sar=p[0],sfr=p[1],emo=p[2];
-    h+='<div class="subject"><h3>'+emo+' '+sar+' <span class="fr">'+sfr+'</span></h3><div class="lessons">';
-    data[key].forEach(l=>{ h+=lessonCard(l[0],sfr,l[1], sar+' '+l[0]+' '+g.g, sar, g.kids); });
-    h+='</div></div>';
+  function render(g){
+    const data=CURR[g.id]||{}; let h='';
+    for(const key in data){ const p=key.split('|');
+      h+='<div class="subject"><h3>'+p[2]+' '+p[0]+' <span class="fr">'+p[1]+'</span></h3><div class="lessons">';
+      data[key].forEach(l=>{ h+=lessonCard(l[0],p[1],l[1], p[0]+' '+l[0]+' '+g.g, p[0], g.kids); });
+      h+='</div></div>';
+    }
+    if(!h) h='<p style="color:#9fd9ff;padding:14px">جارٍ إضافة المحتوى…</p>';
+    document.getElementById('content-'+where).innerHTML=h;
   }
-  if(!h) h='<p style="color:#9fd9ff;padding:14px">جارٍ إضافة المحتوى…</p>';
-  document.getElementById('content-pionniere').innerHTML=h;
+  function tabs(){
+    const t=document.getElementById('tabs-'+where); const items=grades[st.cur].items; let h='';
+    items.forEach((it,i)=>{ h+='<div class="tab'+(i===0?' on':'')+'" data-i="'+i+'">'+it.ar+' · '+it.fr+'</div>'; });
+    t.innerHTML=h;
+    t.querySelectorAll('.tab').forEach(tab=>tab.onclick=()=>{ t.querySelectorAll('.tab').forEach(x=>x.classList.remove('on')); tab.classList.add('on'); render(items[+tab.dataset.i]); });
+    render(items[0]);
+  }
+  cb.querySelectorAll('.catbtn').forEach(b=>b.onclick=()=>{ st.cur=+b.dataset.c; cb.querySelectorAll('.catbtn').forEach(x=>x.classList.remove('on')); b.classList.add('on'); tabs(); });
+  tabs();
 }
 Object.assign(CURR,{
 C1:{
@@ -621,5 +630,148 @@ function renderCyberFull(){
   h+='</div></div>';
   document.getElementById('content-cyber').innerHTML=h;
 }
-buildPionniere(); renderCyberFull();
+/* ===== إثراء شامل للدروس ===== */
+Object.assign(CURR,{
+TCS:{
+'الرياضيات|Maths|🔢':[['La logique (المنطق)','العبارات والروابط المنطقية والمكممات.'],['Ensembles et applications','المجموعات والتطبيقات.'],['Calcul vectoriel','الحساب المتجهي في المستوى.'],['La projection','الإسقاط في المستوى.'],['Géométrie analytique','الهندسة التحليلية ومعادلة المستقيم.'],['Le barycentre','المرجح وخاصياته.'],['Trigonométrie','الحساب المثلثي.'],['Généralités sur les fonctions','عموميات حول الدوال.'],['Transformations du plan','تحويلات المستوى.'],['Statistiques','الإحصاء.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Gravitation universelle','التجاذب الكوني.'],['Actions mécaniques','التأثيرات الميكانيكية.'],['Le mouvement','حركة جسم صلب.'],['Équilibre (2 forces)','توازن جسم تحت تأثير قوتين.'],['Équilibre (3 forces)','توازن جسم تحت ثلاث قوى.'],['Espèces chimiques','الأنواع الكيميائية والاستخلاص.'],['Modèle de l\'atome','نموذج الذرة.'],['Classification périodique','التصنيف الدوري.'],['La mole','المول والكمية المادية.'],['Concentration','التركيز والمحاليل.']],
+'علوم الحياة والأرض|SVT|🧠':[['Écologie','الوسط الطبيعي والتوازنات.'],['Les êtres vivants','الكائنات الحية وتوزعها.'],['La classification','تصنيف الكائنات.'],['Carte géologique','الخريطة الجيولوجية.'],['Les séismes','الزلازل والتكتونية.']],
+'اللغة العربية|Arabe|📖':[['المنهجية','منهجية تحليل النص.'],['النص الشعري','تحليل قصيدة.'],['النص النثري','تحليل نص نثري.'],['الدرس اللغوي','المشتقات والأساليب.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Le texte argumentatif','النص الحجاجي.'],['La nouvelle réaliste','دراسة النصوص.'],['Techniques d\'expression','مهارات التعبير.'],['La correspondance','الرسائل والطلبات.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Present perfect','Life experiences.'],['Modals','Ability, obligation, advice.'],['Conditionals','Types 0-1-2.'],['Reading & Writing','Comprehension and paragraphs.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['العالم المتوسطي','التبادل الحضاري.'],['تنظيم المجال','المجال والسكان.'],['الأنشطة الاقتصادية','الفلاحة والصناعة.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['حقوق الإنسان','القيم الحقوقية.'],['الوسطية','الاعتدال في الإسلام.']],
+'المعلوميات|Informatique|💻':[['Système informatique','النظام المعلوماتي.'],['Algorithmique','مبادئ الخوارزميات.'],['Tableur','الجداول الممعلمة.'],['Internet & sécurité','الأنترنت والأمن الرقمي.']]
+},
+TCT:{
+'الرياضيات|Maths|🔢':[['La logique (المنطق)','أساسيات المنطق.'],['Calcul numérique','الحساب العددي.'],['Calcul vectoriel','الحساب المتجهي.'],['Géométrie analytique','الهندسة التحليلية.'],['Les fonctions','دراسة الدوال.'],['Statistiques','الإحصاء.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Électricité','التيار الكهربائي المستمر.'],['Mécanique','القوى والحركة.'],['Équilibre','توازن الأجسام.'],['Chimie','الذرة والمول.']],
+'التكنولوجيا|Technologie|⚙️':[['Analyse fonctionnelle','التحليل الوظيفي.'],['Lecture de dessin','قراءة الرسم التقني.'],['Les matériaux','خصائص المواد.'],['Liaisons mécaniques','الوصلات الميكانيكية.'],['Les énergies','مصادر الطاقة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Compréhension','فهم النصوص.'],['Production écrite','التعبير الكتابي.'],['Texte argumentatif','النص الحجاجي.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Technical English','مصطلحات تقنية.'],['Grammar','Tenses and modals.']],
+'اللغة العربية|Arabe|📖':[['النصوص','نصوص وظيفية.'],['الدرس اللغوي','الأساليب.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['العمل والإتقان','قيمة العمل.']],
+'المعلوميات|Informatique|💻':[['Algorithmique','الخوارزميات.'],['Tableur','الجداول.']]
+}
+});
+Object.assign(CURR,{
+'1BSE':{
+'الرياضيات|Maths|🔢':[['Le barycentre','المرجح.'],['Produit scalaire','الجداء السلمي.'],['Trigonométrie','الحساب المثلثي والمعادلات.'],['Les suites numériques','المتتاليات العددية.'],['Limites d\'une fonction','نهايات دالة.'],['Dérivation','الاشتقاق ودراسة الدوال.'],['Le dénombrement','التعداد والتوافيق.'],['Géométrie dans l\'espace','الهندسة الفضائية.'],['La rotation','الدوران في المستوى.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Travail et puissance','الشغل والقدرة.'],['Énergie cinétique','الطاقة الحركية.'],['Énergie potentielle','طاقة الوضع والميكانيكية.'],['Champ électrostatique','المجال الكهربائي.'],['Champ magnétique','المجال المغناطيسي.'],['Mesures en chimie','القياسات الكيميائية.'],['Réactions acide-base','تفاعلات حمض-قاعدة.'],['Dosages','المعايرة.'],['Chimie organique','مدخل للكيمياء العضوية.']],
+'علوم الحياة والأرض|SVT|🧠':[['La digestion','الهضم والامتصاص.'],['La circulation','الدوران الدموي.'],['Le système nerveux','الجهاز العصبي.'],['Les chaînes de montagnes','السلاسل الجبلية.'],['Le phénomène sédimentaire','الترسّب.']],
+'اللغة الفرنسية|Français|🇫🇷':[['La Boîte à Merveilles','أحمد سفريوي.'],['Antigone','جان أنوي.'],['Le Dernier Jour d\'un Condamné','فيكتور هوغو.'],['Production écrite','التعبير الكتابي.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Conditionals','If-clauses.'],['Reported speech','الكلام المنقول.'],['Passive voice','المبني للمجهول.']],
+'اللغة العربية|Arabe|📖':[['المنهجية','منهجية النص.'],['النصوص','تحليل النصوص.'],['الدرس اللغوي','الأساليب.']],
+'الفلسفة|Philosophie|🧩':[['نشأة الفلسفة','من الأسطورة إلى العقل.'],['طبيعة الفكر الفلسفي','المفهومة والمنهج.'],['المنطق','مبادئ المنطق.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الثورة الصناعية','التحولات الكبرى.'],['الحرب العالمية الأولى','الأسباب والنتائج.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','الحرية والمسؤولية.']]
+},
+'1BSM':{
+'الرياضيات|Maths|🔢':[['La logique (المنطق)','المنطق الرياضي.'],['Les ensembles','المجموعات.'],['Les suites','المتتاليات.'],['Trigonométrie','الدوال المثلثية.'],['Limites et continuité','النهايات والاتصال.'],['Dérivation','الاشتقاق.'],['Étude de fonctions','دراسة الدوال.'],['Le dénombrement','التعداد.'],['Produit scalaire','الجداء السلمي.'],['Géométrie dans l\'espace','الهندسة الفضائية.'],['Le barycentre','المرجح.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Mécanique','الميكانيك والطاقة.'],['Le dipôle RC','ثنائي القطب RC.'],['Champs','المجالات الكهربائية والمغناطيسية.'],['Chimie','القياسات والتفاعلات.']],
+'علوم الحياة والأرض|SVT|🧠':[['Géologie','الظواهر الجيولوجية.'],['SVT générale','وظائف التغذية.']],
+'اللغة الفرنسية|Français|🇫🇷':[['La Boîte à Merveilles','دراسة المؤلف.'],['Antigone','دراسة المسرحية.'],['Le Dernier Jour','فيكتور هوغو.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Conditionals','If-clauses.'],['Passive','المبني للمجهول.']],
+'الفلسفة|Philosophie|🧩':[['نشأة الفلسفة','الفلسفة والعلم.'],['المنطق','الاستدلال.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','العدل والإحسان.']]
+},
+'1BST':{
+'الرياضيات|Maths|🔢':[['Calcul vectoriel','الحساب المتجهي.'],['Les suites','المتتاليات.'],['Limites','نهايات الدوال.'],['Dérivation','الاشتقاق.'],['Étude de fonctions','دراسة الدوال.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Électricité','التيار المتناوب.'],['Mécanique','الحركة والقوى.'],['Chimie','التفاعلات.']],
+'علوم المهندس|Sciences de l\'Ingénieur|⚙️':[['Analyse fonctionnelle','التحليل الوظيفي.'],['Chaîne d\'énergie','سلسلة الطاقة.'],['Chaîne d\'information','سلسلة المعلومة.'],['Systèmes automatisés','الأنظمة المؤتمتة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.'],['Production','التعبير.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Technical English','مصطلحات تقنية.']],
+'الفلسفة|Philosophie|🧩':[['نشأة الفلسفة','ما الفلسفة؟'],['المنطق','الاستدلال.']]
+}
+});
+Object.assign(CURR,{
+'1BECO':{
+'الاقتصاد والتنظيم|Économie|💼':[['المؤسسة ومحيطها','مفهوم المقاولة.'],['النشاط الاقتصادي','الإنتاج والاستهلاك.'],['السوق','العرض والطلب.'],['التنظيم الإداري','هياكل المقاولة.']],
+'المحاسبة|Comptabilité|🧮':[['الميزانية','الميزانية العمومية.'],['القيد المحاسبي','التسجيل المحاسبي.'],['الفواتير','معالجة الفواتير.']],
+'الرياضيات|Maths|🔢':[['Les suites','المتتاليات.'],['Les fonctions','دراسة الدوال.'],['Mathématiques financières','الرياضيات المالية.'],['Statistiques','الإحصاء.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['العولمة','الاقتصاد العالمي.'],['التنمية','إشكاليات التنمية.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.'],['Production','التعبير.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Business English','إنجليزية الأعمال.']],
+'الفلسفة|Philosophie|🧩':[['نشأة الفلسفة','مدخل.'],['المنطق','الاستدلال.']]
+},
+'1BLSH':{
+'اللغة العربية|Arabe|📖':[['النص الشعري','تحليل القصائد.'],['النص النثري','تحليل النصوص.'],['المنهجية','منهجية الكتابة.'],['الدرس اللغوي','البلاغة والأساليب.']],
+'الفلسفة|Philosophie|🧩':[['نشأة الفلسفة','من الأسطورة إلى العقل.'],['طبيعة الفكر الفلسفي','المفهومة.'],['المنطق','مبادئ المنطق.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الثورة الصناعية','التحولات.'],['الحرب العالمية الأولى','الأسباب والنتائج.']],
+'اللغة الفرنسية|Français|🇫🇷':[['La Boîte à Merveilles','المؤلف.'],['Antigone','المسرحية.'],['Le Dernier Jour','الرواية.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Conditionals','If-clauses.'],['Reported speech','الكلام المنقول.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','الحرية والمسؤولية.']]
+}
+});
+Object.assign(CURR,{
+'2BPC':{
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Ondes mécaniques','الموجات الميكانيكية.'],['Ondes lumineuses','الضوء والحيود.'],['Décroissance radioactive','التناقص الإشعاعي.'],['Noyau, masse et énergie','النواة والطاقة.'],['Dipôle RC','ثنائي القطب RC.'],['Dipôle RL','ثنائي القطب RL.'],['Circuit RLC','تذبذبات RLC.'],['Modulation','المضمين السعوي.'],['Transformations lentes/rapides','تتبع التفاعل.'],['Vitesse de réaction','سرعة التفاعل.'],['Acide-base & dosage','تفاعلات حمض-قاعدة والمعايرة.'],['Piles & électrolyse','الأعمدة والتحليل الكهربائي.'],['Chimie organique','الأسترة والحمأة.']],
+'الرياضيات|Maths|🔢':[['Continuité','الاتصال.'],['Dérivabilité','الاشتقاق.'],['Fonction logarithme','الدالة اللوغاريتمية.'],['Fonction exponentielle','الدالة الأسية.'],['Les suites','المتتاليات.'],['Calcul intégral','الحساب التكاملي.'],['Équations différentielles','المعادلات التفاضلية.'],['Nombres complexes','الأعداد العقدية.'],['Probabilités','الاحتمالات.'],['Géométrie dans l\'espace','الهندسة الفضائية.']],
+'علوم الحياة والأرض|SVT|🧠':[['Géologie','التكتونية العامة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Il était une fois...','العربي المردوشي.'],['La Ligne Blanche','النص.'],['Production écrite','التعبير الكتابي.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Reading','فهم النصوص.'],['Writing','التعبير.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص والغير.'],['المعرفة','النظرية والتجريب.'],['السياسة','الدولة والعنف.'],['الأخلاق','الواجب والحرية.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','الحق والواجب.']]
+},
+'2BSVT':{
+'علوم الحياة والأرض|SVT|🧠':[['Consommation de matière','استهلاك المادة العضوية.'],['Libération d\'énergie','التنفس والتخمر.'],['Rôle du muscle','دور العضلة.'],['Génétique','الوراثة البشرية.'],['Génie génétique','الهندسة الوراثية.'],['Immunologie','المناعة.'],['Communication nerveuse','التواصل العصبي.'],['Communication hormonale','التواصل الهرموني.'],['Tectonique des plaques','تكتونية الصفائح.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Ondes','الموجات.'],['Nucléaire','النوويات والطاقة.'],['Électricité','RC-RL-RLC.'],['Chimie','التفاعلات والمعايرة.']],
+'الرياضيات|Maths|🔢':[['Continuité & dérivation','الاتصال والاشتقاق.'],['Logarithme & exponentielle','الدوال اللوغاريتمية والأسية.'],['Suites','المتتاليات.'],['Calcul intégral','التكامل.'],['Probabilités','الاحتمالات.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Il était une fois...','المؤلف.'],['Production','التعبير.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Reading & Writing','فهم وتعبير.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص.'],['المعرفة','العلم.'],['الأخلاق','الواجب.']],
+'التربية الإسلامية|Éduc. Islamique|🕌':[['القيم','الحق والواجب.']]
+}
+});
+Object.assign(CURR,{
+'2BSMA':{
+'الرياضيات|Maths|🔢':[['Limites et continuité','النهايات والاتصال.'],['Dérivation & étude','الاشتقاق ودراسة الدوال.'],['Fonction logarithme','الدالة اللوغاريتمية.'],['Fonction exponentielle','الدالة الأسية.'],['Les suites','المتتاليات.'],['Calcul intégral','الحساب التكاملي.'],['Équations différentielles','المعادلات التفاضلية.'],['Nombres complexes','الأعداد العقدية.'],['Structures algébriques','البنيات الجبرية.'],['Espaces vectoriels','الفضاءات المتجهية.'],['Probabilités','الاحتمالات.'],['Géométrie dans l\'espace','الهندسة الفضائية والجداء المتجهي.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Ondes','الموجات الميكانيكية والضوئية.'],['Électricité','RC-RL-RLC والمضمين.'],['Nucléaire','النواة والطاقة.'],['Mécanique','قوانين نيوتن.'],['Chimie','التفاعلات والمعايرة.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.'],['Production','التعبير.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Reading & Writing','فهم وتعبير.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص والغير.'],['المعرفة','النظرية والتجريب.'],['الأخلاق','الواجب والحرية.']]
+},
+'2BSMB':{
+'الرياضيات|Maths|🔢':[['Limites et continuité','النهايات والاتصال.'],['Dérivation & étude','دراسة الدوال.'],['Logarithme & exponentielle','الدوال اللوغاريتمية والأسية.'],['Les suites','المتتاليات.'],['Calcul intégral','التكامل.'],['Équations différentielles','المعادلات التفاضلية.'],['Nombres complexes','الأعداد العقدية.'],['L\'arithmétique','الحسابيات.'],['Structures algébriques','البنيات الجبرية.'],['Probabilités','الاحتمالات.'],['Géométrie dans l\'espace','الهندسة الفضائية.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Ondes','الموجات.'],['Électricité','RC-RL-RLC.'],['Nucléaire','الطاقة النووية.'],['Chimie','التفاعلات.']],
+'المعلوميات|Informatique|💻':[['Algorithmique','الخوارزميات.'],['Programmation Python','البرمجة بلغة بايثون.'],['Structures de données','الجداول والمصفوفات.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','دراسة المؤلفات.'],['Production','التعبير.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Reading & Writing','فهم وتعبير.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص.'],['المعرفة','العلم والحقيقة.'],['الأخلاق','الواجب.']]
+}
+});
+Object.assign(CURR,{
+'2BSTE':{
+'الهندسة الكهربائية|Génie Électrique|⚡':[['Logique combinatoire','المنطق التوليفي.'],['Logique séquentielle','المنطق التتابعي.'],['Les automatismes','الأنظمة المؤتمتة.'],['Moteurs électriques','المحركات الكهربائية.'],['Électronique de puissance','إلكترونيات الاستطاعة.']],
+'الرياضيات|Maths|🔢':[['Continuité & dérivation','الاتصال والاشتقاق.'],['Logarithme & exponentielle','الدوال اللوغاريتمية والأسية.'],['Calcul intégral','التكامل.'],['Équations différentielles','المعادلات التفاضلية.'],['Nombres complexes','الأعداد العقدية.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Électricité','الدوائر الكهربائية.'],['Mécanique','الميكانيك.'],['Chimie','التفاعلات.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','المؤلفات.'],['Production','التعبير.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Technical English','مصطلحات تقنية.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص.'],['المعرفة','العلم.'],['الأخلاق','الواجب.']]
+},
+'2BSTM':{
+'الهندسة الميكانيكية|Génie Mécanique|⚙️':[['Analyse fonctionnelle','التحليل الوظيفي.'],['Dessin technique','الرسم التقني.'],['Cinématique','السينماتيك.'],['Résistance des matériaux','مقاومة المواد.'],['Les procédés','طرق التصنيع.']],
+'الرياضيات|Maths|🔢':[['Continuité & dérivation','الاتصال والاشتقاق.'],['Logarithme & exponentielle','الدوال.'],['Calcul intégral','التكامل.'],['Équations différentielles','المعادلات التفاضلية.'],['Nombres complexes','الأعداد العقدية.']],
+'الفيزياء والكيمياء|Physique-Chimie|⚗️':[['Mécanique','الميكانيك.'],['Électricité','الكهرباء.'],['Chimie','التفاعلات.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','المؤلفات.'],['Production','التعبير.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Technical English','مصطلحات تقنية.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص.'],['المعرفة','العلم.'],['الأخلاق','الواجب.']]
+},
+'2BECO':{
+'الاقتصاد والإحصاء|Économie|💼':[['التوازنات الاقتصادية','الناتج والدخل.'],['النقود والتمويل','السياسة النقدية.'],['المبادلات الخارجية','التجارة الدولية.'],['الإحصاء','التحاليل الإحصائية.']],
+'المحاسبة|Comptabilité|🧮':[['التسويات','أشغال النهاية.'],['القوائم المالية','الحصيلة والنتائج.']],
+'الرياضيات|Maths|🔢':[['Les fonctions','دراسة الدوال.'],['Les suites','المتتاليات.'],['Mathématiques financières','الرياضيات المالية.'],['Probabilités','الاحتمالات.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','المؤلفات.'],['Production','التعبير.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص.'],['المعرفة','العلم.'],['الأخلاق','الواجب.']]
+},
+'2BLSH':{
+'اللغة العربية|Arabe|📖':[['إحياء النموذج','شعر النهضة.'],['سؤال الذات','الشعر الرومانسي.'],['تكسير البنية','الشعر الحر.'],['تجديد الرؤيا','الشعر المعاصر.'],['المسرح والقصة','النثر الحديث.']],
+'الفلسفة|Philosophie|🧩':[['الوضع البشري','الشخص والغير والتاريخ.'],['المعرفة','النظرية والتجريب والحقيقة.'],['السياسة','الدولة والعنف والحق.'],['الأخلاق','الواجب والسعادة.']],
+'الاجتماعيات|Histoire-Géo|🗺️':[['الحرب العالمية الثانية','الأسباب والنتائج.'],['المغرب المعاصر','الاستقلال والبناء.']],
+'اللغة الفرنسية|Français|🇫🇷':[['Les œuvres','المؤلفات.'],['Production','التعبير.']],
+'اللغة الإنجليزية|Anglais|🇬🇧':[['Reading & Writing','فهم وتعبير.']]
+}
+});
+/*OVR*/
+buildGraded('pionniere',GRADES); buildGraded('lycee',GRADES_LY); renderCyberFull();
 </script></body></html>
