@@ -42,6 +42,31 @@ body{
 @keyframes shine{to{background-position:200% center}}
 .flagline{height:4px;width:180px;border-radius:4px;background:linear-gradient(90deg,var(--red),var(--green));box-shadow:0 0 16px var(--green)}
 /* ===== HERO / NAMES ===== */
+.massar{max-width:560px;margin:18px auto 4px;border-radius:18px;background:linear-gradient(135deg,rgba(25,231,255,.10),rgba(10,15,40,.55));border:1px solid rgba(25,231,255,.35);overflow:hidden;box-shadow:0 0 24px rgba(25,231,255,.12)}
+.massar-head{width:100%;cursor:pointer;display:flex;align-items:center;gap:12px;padding:16px 18px;background:transparent;border:none;color:#fff;font-family:'Cairo';text-align:right}
+.massar-head .ic{font-size:26px}
+.massar-head .tx{display:flex;flex-direction:column;flex:1;text-align:center}
+.massar-head .tx .ar{font-size:18px;font-weight:800}
+.massar-head .tx .fr{font-size:11px;color:#9fd9ff;font-family:Orbitron;margin-top:2px}
+.massar-head .arrow{font-size:16px;color:#9fd9ff;transition:transform .3s}
+.massar.open .massar-head .arrow{transform:rotate(180deg)}
+.massar-body{max-height:0;overflow:hidden;transition:max-height .35s ease;padding:0 20px}
+.massar.open .massar-body{max-height:900px;padding:4px 20px 20px}
+.mlbl{display:block;color:#cfeaff;font-size:13px;margin:12px 0 5px;font-weight:700}
+.minp{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1px solid rgba(25,231,255,.4);background:rgba(5,12,30,.6);color:#fff;font-family:'Cairo';font-size:15px;outline:none}
+.minp:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(25,231,255,.3)}
+.massar-login{width:100%;margin-top:18px;cursor:pointer;border:none;border-radius:12px;padding:14px;font-family:'Cairo';font-size:17px;font-weight:800;color:#042814;background:linear-gradient(135deg,#1ddb7a,#0fae5e);box-shadow:0 6px 18px rgba(29,219,122,.4);transition:transform .2s,box-shadow .2s}
+.massar-login:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(29,219,122,.55)}
+.mnote{color:#9fd9ff;font-size:11px;margin:12px 0 0;text-align:center;line-height:1.6}
+.qlinks-wrap{margin-top:16px;padding-top:14px;border-top:1px dashed rgba(25,231,255,.25)}
+.qlinks-title{color:#cfeaff;font-size:13px;font-weight:800;margin-bottom:10px;text-align:center}
+.qlinks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qlink{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:rgba(5,12,30,.55);border:1px solid rgba(25,231,255,.3);color:#fff;text-decoration:none;transition:transform .2s,border-color .2s,box-shadow .2s}
+.qlink:hover{transform:translateY(-2px);border-color:var(--cyan);box-shadow:0 6px 16px rgba(25,231,255,.25)}
+.qlink .qi{font-size:22px;flex-shrink:0}
+.qlink .qt{display:flex;flex-direction:column;font-size:13px;font-weight:700;line-height:1.3}
+.qlink .qt small{font-family:Orbitron;font-size:9px;color:#9fd9ff;font-weight:400;margin-top:2px;direction:ltr}
+@media(max-width:480px){.qlinks{grid-template-columns:1fr}}
 .hero{text-align:center;margin:26px 0 10px}
 .hero .title{font-size:clamp(28px,6vw,54px);font-weight:900;line-height:1.1;background:linear-gradient(90deg,var(--cyan),#fff,var(--green));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 5s linear infinite;text-shadow:0 0 30px rgba(25,231,255,.2)}
 .hero .sub{margin-top:6px;color:#bfe9ff;font-size:clamp(13px,2vw,17px);letter-spacing:1px}
@@ -163,6 +188,33 @@ body.light footer{background:rgba(255,255,255,.6)}
 
   <!-- HOME -->
   <section id="home" class="active">
+    <!-- MASSAR -->
+    <div class="massar">
+      <button class="massar-head" onclick="toggleMassar()">
+        <span class="ic">🎓</span>
+        <span class="tx"><span class="ar">منظومة مسار متمدرس</span><span class="fr">SYSTÈME MASSAR · ESPACE ÉLÈVE</span></span>
+        <span class="arrow" id="massarArrow">▾</span>
+      </button>
+      <div class="massar-body" id="massarBody">
+        <label class="mlbl">رمز مسار · Code Massar</label>
+        <input id="massarCode" class="minp" type="text" placeholder="مثال · R130000000" autocomplete="off">
+        <label class="mlbl">كلمة السر · Mot de passe</label>
+        <input id="massarPass" class="minp" type="password" placeholder="••••••••" autocomplete="off">
+        <button class="massar-login" onclick="goMassar()">🔓 الدخول · Connexion</button>
+        <p class="mnote">يتم نقلك إلى الموقع الرسمي لمنظومة مسار لإتمام تسجيل الدخول بأمان.</p>
+        <div class="qlinks-wrap">
+          <div class="qlinks-title">🔗 روابط سريعة · مواقع الوزارة</div>
+          <div class="qlinks">
+            <a class="qlink" href="https://www.men.gov.ma" target="_blank" rel="noopener"><span class="qi">🏛️</span><span class="qt">الموقع الرسمي للوزارة<small>men.gov.ma</small></span></a>
+            <a class="qlink" href="https://telmidtice.men.gov.ma" target="_blank" rel="noopener"><span class="qi">📺</span><span class="qt">TelmidTICE · الدروس المصورة<small>telmidtice.men.gov.ma</small></span></a>
+            <a class="qlink" href="https://massarservice.men.gov.ma" target="_blank" rel="noopener"><span class="qi">🎓</span><span class="qt">مسار · خدمات المواطن<small>massarservice.men.gov.ma</small></span></a>
+            <a class="qlink" href="https://taalimtice.men.gov.ma" target="_blank" rel="noopener"><span class="qi">💻</span><span class="qt">تعليم TICE · الموارد الرقمية<small>taalimtice.men.gov.ma</small></span></a>
+            <a class="qlink" href="https://www.tawjihnet.net" target="_blank" rel="noopener"><span class="qi">🧩</span><span class="qt">التوجيه المدرسي والجامعي<small>tawjihnet.net</small></span></a>
+            <a class="qlink" href="https://moutamadris.men.gov.ma" target="_blank" rel="noopener"><span class="qi">🎒</span><span class="qt">فضاء التلميذ · Moutamadris<small>moutamadris.men.gov.ma</small></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="hero">
       <div class="title">منصة التعلم الرقمي</div>
       <div class="sub">بوابة دروس التعليم الابتدائي · Plateforme d'Apprentissage Numérique 2034</div>
@@ -239,6 +291,9 @@ body.light footer{background:rgba(255,255,255,.6)}
 
 <script>
 function go(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+var MASSAR_URL="https://massarservice.men.gov.ma/moutamadris/";
+function toggleMassar(){document.querySelector('.massar').classList.toggle('open');}
+function goMassar(){window.open(MASSAR_URL,'_blank','noopener');}
 var CYBER_PASS="3121645497870000";var cyberUnlocked=false;
 function goCyber(){if(cyberUnlocked){go('cyber');return;}var p=window.prompt("\uD83D\uDD12 هذا القسم محمي — المرجو إدخال كلمة السر\nSection protégée — Veuillez saisir le mot de passe :");if(p===null){return;}if(p.trim()===CYBER_PASS){cyberUnlocked=true;go('cyber');}else{alert("\u274C كلمة السر غير صحيحة\nMot de passe incorrect");}}
 function yt(q,kids){return 'https://www.youtube.com/results?search_query='+encodeURIComponent(q+(kids?' شرح للأطفال':' شرح الدرس كامل'));}
