@@ -92,6 +92,8 @@ body{
 .navbtn.cyb{background:linear-gradient(135deg,rgba(255,45,85,.22),rgba(120,0,30,.3));border-color:rgba(255,45,85,.7);box-shadow:0 0 32px rgba(255,45,85,.35);animation:redpulse 2.4s ease-in-out infinite}
 .navbtn.lyc{box-shadow:0 0 30px rgba(170,120,255,.28);border-color:rgba(170,120,255,.6)}
 .navbtn.lyc:hover{box-shadow:0 0 46px rgba(170,120,255,.6)}
+.navbtn.uni{box-shadow:0 0 30px rgba(255,196,0,.25);border-color:rgba(255,196,0,.6)}
+.navbtn.uni:hover{box-shadow:0 0 46px rgba(255,196,0,.55)}
 @keyframes redpulse{0%,100%{box-shadow:0 0 25px rgba(255,45,85,.35)}50%{box-shadow:0 0 50px rgba(255,45,85,.75)}}
 /* ===== SECTIONS ===== */
 section{display:none;animation:fadeIn .5s ease}
@@ -105,10 +107,22 @@ section.active{display:block}
 .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
 .tab{cursor:pointer;background:var(--glass);border:1px solid var(--line);color:#cfeaff;padding:9px 16px;border-radius:999px;font-weight:700;font-size:14px;transition:.2s}
 .tab.on{background:linear-gradient(90deg,var(--cyan),var(--green));color:#042;border-color:transparent;box-shadow:0 0 18px rgba(25,231,255,.4)}
-.subject{margin-bottom:26px}
-.subject h3{font-size:19px;font-weight:800;color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.subject{margin-bottom:16px;border:1px solid var(--line);border-radius:16px;background:var(--glass);overflow:hidden}
+.subject h3{font-size:19px;font-weight:800;color:var(--cyan);margin:0;padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:8px;flex-wrap:wrap;transition:background .2s;user-select:none}
+.subject h3:hover{background:rgba(25,231,255,.07)}
 .subject h3 .fr{font-size:12px;color:#9fd9ff;font-family:'Orbitron'}
+.subject h3 .chev{margin-inline-start:auto;font-size:15px;color:#9fd9ff;transition:transform .3s}
+.subject h3::after{content:'\25be';margin-inline-start:auto;font-size:15px;color:#9fd9ff;transition:transform .3s}
+.subject.open h3::after{transform:rotate(180deg)}
+.subject.open h3 .chev{transform:rotate(180deg)}
+.subject .lessons,.subject .roadmap{display:none}
+.subject.open .lessons,.subject.open .roadmap{display:grid;padding:0 18px 18px}
 .lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.uni-item{display:flex;flex-direction:column;gap:3px;background:rgba(5,20,40,.5);border:1px solid var(--line);border-radius:12px;padding:11px 13px;font-size:14px;font-weight:700;color:#e6f3ff}
+.uni-item small{font-family:Orbitron;font-size:10px;color:#9fd9ff;font-weight:400;direction:ltr}
+.uni-item.danger{background:linear-gradient(135deg,rgba(255,45,85,.18),rgba(120,0,30,.25));border-color:rgba(255,45,85,.75);color:#ff9fb0;box-shadow:0 0 16px rgba(255,45,85,.35);animation:redpulse 2.6s ease-in-out infinite}
+.uni-item.danger small{color:#ffc2cd}
+.uni-note{font-size:12px;color:#9fd9ff;padding:0 18px 14px;line-height:1.7}
 .lesson{display:block;text-decoration:none;color:inherit;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:14px 16px;transition:.25s;position:relative}
 .lesson:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 0 22px rgba(25,231,255,.3)}
 .lesson .lt{font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px}
@@ -233,6 +247,7 @@ body.light footer{background:rgba(255,255,255,.6)}
     <div class="btn-grid">
       <button class="navbtn pio" onclick="go('pionniere')"><span class="ic">🏫</span><span class="ar">المدرسة الرائدة</span><span class="fr">ÉCOLE PIONNIÈRE · LARACHE</span></button>
       <button class="navbtn lyc" onclick="go('lycee')"><span class="ic">🏛️</span><span class="ar">الثانوية التأهيلية</span><span class="fr">LYCÉE · OPTION FRANÇAISE</span></button>
+      <button class="navbtn uni" onclick="go('universite')"><span class="ic">🎓🌐</span><span class="ar">الجامعة</span><span class="fr">UNIVERSITÉ · FILIÈRES & SPÉCIALITÉS</span></button>
       <button class="navbtn pri" onclick="go('privee')"><span class="ic">🎓</span><span class="ar">المدرسة الخصوصية</span><span class="fr">ÉCOLE PRIVÉE</span></button>
       <button class="navbtn cyb" onclick="goCyber()"><span class="ic">🛡️🔒</span><span class="ar">خاص بطلاب الأمن السيبراني</span><span class="fr">RÉSERVÉ · CYBERSÉCURITÉ</span></button>
     </div>
@@ -258,6 +273,108 @@ body.light footer{background:rgba(255,255,255,.6)}
     <div class="cats" id="cats-lycee"></div>
     <div class="tabs" id="tabs-lycee"></div>
     <div id="content-lycee"></div>
+  </section>
+
+  <!-- UNIVERSITE -->
+  <section id="universite">
+    <div class="sec-head">
+      <div><h2>الجامعة <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">Université · Filières</span></h2><div class="city">🎓 التخصصات الجامعية بالمغرب · وجامعتا ULB و KU Leuven ببلجيكا</div></div>
+      <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
+    </div>
+    <p class="uni-note">👇 اضغط على أي خانة لتظهر لك التخصصات (البرونشات) التي تُدرس داخلها. تخصص <b style="color:#ff6b86">الأمن السيبيراني</b> مميّز باللون الأحمر للدلالة على الخطر والحساسية.</p>
+    <div class="subject"><h3>💻 علوم الحاسوب والرقميات <span class="fr">Informatique & Numérique</span></h3><div class="lessons">
+      <div class="uni-item">علوم الحاسوب<small>Computer Science</small></div>
+      <div class="uni-item">هندسة البرمجيات<small>Software Engineering</small></div>
+      <div class="uni-item">الشبكات والاتصالات<small>Networks & Telecom</small></div>
+      <div class="uni-item">الذكاء الاصطناعي وعلم البيانات<small>AI & Data Science</small></div>
+      <div class="uni-item">تطوير الويب والتطبيقات<small>Web & Mobile Dev</small></div>
+      <div class="uni-item">نظم المعلومات<small>Information Systems</small></div>
+      <div class="uni-item">الحوسبة السحابية<small>Cloud Computing</small></div>
+      <div class="uni-item danger">🔒 الأمن السيبيراني<small>⚠️ Cybersecurity</small></div>
+    </div></div>
+    <div class="subject"><h3>🔬 العلوم والتقنيات <span class="fr">Sciences & Techniques</span></h3><div class="lessons">
+      <div class="uni-item">الرياضيات<small>Mathématiques</small></div>
+      <div class="uni-item">الفيزياء<small>Physique</small></div>
+      <div class="uni-item">الكيمياء<small>Chimie</small></div>
+      <div class="uni-item">علوم الحياة<small>Biologie</small></div>
+      <div class="uni-item">علوم الأرض والجيولوجيا<small>Géologie</small></div>
+      <div class="uni-item">علوم المواد<small>Sciences des Matériaux</small></div>
+      <div class="uni-item">الإحصاء التطبيقي<small>Statistiques</small></div>
+    </div></div>
+    <div class="subject"><h3>⚙️ العلوم المهندسة <span class="fr">Écoles d'Ingénieurs</span></h3><div class="lessons">
+      <div class="uni-item">الهندسة المدنية<small>Génie Civil</small></div>
+      <div class="uni-item">الهندسة الكهربائية<small>Génie Électrique</small></div>
+      <div class="uni-item">الهندسة الميكانيكية<small>Génie Mécanique</small></div>
+      <div class="uni-item">الهندسة الصناعية<small>Génie Industriel</small></div>
+      <div class="uni-item">الهندسة المعلوماتية<small>Génie Informatique</small></div>
+      <div class="uni-item">الطاقات المتجددة<small>Énergies Renouvelables</small></div>
+      <div class="uni-item danger">🔒 أمن المعلومات والأنظمة<small>⚠️ Information Security · ENSIAS/INPT</small></div>
+    </div></div>
+    <div class="subject"><h3>🩺 الطب والصحة <span class="fr">Médecine & Santé</span></h3><div class="lessons">
+      <div class="uni-item">الطب العام<small>Médecine</small></div>
+      <div class="uni-item">طب الأسنان<small>Médecine Dentaire</small></div>
+      <div class="uni-item">الصيدلة<small>Pharmacie</small></div>
+      <div class="uni-item">التمريض<small>Soins Infirmiers</small></div>
+      <div class="uni-item">القبالة<small>Sage-femme</small></div>
+      <div class="uni-item">العلاج الطبيعي<small>Kinésithérapie</small></div>
+    </div></div>
+    <div class="subject"><h3>💼 الاقتصاد والتدبير والتجارة <span class="fr">Économie & Gestion</span></h3><div class="lessons">
+      <div class="uni-item">الاقتصاد<small>Économie</small></div>
+      <div class="uni-item">التدبير<small>Gestion / Management</small></div>
+      <div class="uni-item">المحاسبة والمالية<small>Comptabilité & Finance</small></div>
+      <div class="uni-item">التسويق<small>Marketing</small></div>
+      <div class="uni-item">التجارة الدولية<small>Commerce International</small></div>
+      <div class="uni-item">البنوك والتأمين<small>Banque & Assurance</small></div>
+      <div class="uni-item">ريادة الأعمال<small>Entrepreneuriat</small></div>
+    </div></div>
+    <div class="subject"><h3>⚖️ الحقوق والعلوم السياسية <span class="fr">Droit & Sc. Politiques</span></h3><div class="lessons">
+      <div class="uni-item">القانون الخاص<small>Droit Privé</small></div>
+      <div class="uni-item">القانون العام<small>Droit Public</small></div>
+      <div class="uni-item">العلوم السياسية<small>Sciences Politiques</small></div>
+      <div class="uni-item">العلاقات الدولية<small>Relations Internationales</small></div>
+    </div></div>
+    <div class="subject"><h3>📖 الآداب واللغات والعلوم الإنسانية <span class="fr">Lettres & Sciences Humaines</span></h3><div class="lessons">
+      <div class="uni-item">الأدب العربي<small>Littérature Arabe</small></div>
+      <div class="uni-item">اللغة الفرنسية<small>Études Françaises</small></div>
+      <div class="uni-item">اللغة الإنجليزية<small>English Studies</small></div>
+      <div class="uni-item">اللغة الإسبانية<small>Études Hispaniques</small></div>
+      <div class="uni-item">الترجمة<small>Traduction</small></div>
+      <div class="uni-item">التاريخ والجغرافيا<small>Histoire-Géographie</small></div>
+      <div class="uni-item">الفلسفة<small>Philosophie</small></div>
+      <div class="uni-item">علم الاجتماع<small>Sociologie</small></div>
+      <div class="uni-item">علم النفس<small>Psychologie</small></div>
+    </div></div>
+    <div class="subject"><h3>🏛️ أبرز الجامعات المغربية <span class="fr">Universités Marocaines</span></h3><div class="lessons">
+      <div class="uni-item">جامعة محمد الخامس<small>Rabat</small></div>
+      <div class="uni-item">جامعة الحسن الثاني<small>Casablanca</small></div>
+      <div class="uni-item">جامعة القرويين<small>Fès</small></div>
+      <div class="uni-item">جامعة سيدي محمد بن عبد الله<small>Fès</small></div>
+      <div class="uni-item">جامعة القاضي عياض<small>Marrakech</small></div>
+      <div class="uni-item">جامعة ابن زهر<small>Agadir</small></div>
+      <div class="uni-item">جامعة عبد المالك السعدي<small>Tétouan</small></div>
+      <div class="uni-item">جامعة ابن طفيل<small>Kénitra</small></div>
+      <div class="uni-item danger">🔒 ENSIAS · مدرسة الأمن المعلوماتي<small>⚠️ Cybersecurity · Rabat</small></div>
+    </div></div>
+    <div class="subject"><h3>🇧🇪 جامعة ULB <span class="fr">Université Libre de Bruxelles · Belgique</span></h3><div class="lessons">
+      <div class="uni-item">العلوم (معلوميات، رياضيات، فيزياء)<small>Faculté des Sciences</small></div>
+      <div class="uni-item">المدرسة البوليتقنية (هندسة)<small>École Polytechnique</small></div>
+      <div class="uni-item">الطب<small>Faculté de Médecine</small></div>
+      <div class="uni-item">الحقوق<small>Droit & Criminologie</small></div>
+      <div class="uni-item">الاقتصاد والتدبير<small>Solvay · Éco & Gestion</small></div>
+      <div class="uni-item">الفلسفة والعلوم الاجتماعية<small>Philo & Sc. Sociales</small></div>
+      <div class="uni-item">الآداب والترجمة<small>Lettres & Traduction</small></div>
+      <div class="uni-item danger">🔒 ماستر الأمن السيبيراني<small>⚠️ Master in Cybersecurity</small></div>
+    </div></div>
+    <div class="subject"><h3>🇧🇪 جامعة KU Leuven <span class="fr">Katholieke Universiteit Leuven · Bruxelles/Leuven</span></h3><div class="lessons">
+      <div class="uni-item">العلوم المهندسة<small>Engineering Science</small></div>
+      <div class="uni-item">تكنولوجيا الهندسة<small>Engineering Technology</small></div>
+      <div class="uni-item">علوم الحاسوب<small>Computer Science</small></div>
+      <div class="uni-item">الطب وعلوم الحياة<small>Medicine & Life Sciences</small></div>
+      <div class="uni-item">الحقوق<small>Law</small></div>
+      <div class="uni-item">الاقتصاد والأعمال<small>Economics & Business</small></div>
+      <div class="uni-item">الآداب<small>Arts & Humanities</small></div>
+      <div class="uni-item danger">🔒 ماستر الأمن السيبيراني · COSIC<small>⚠️ Master of Cybersecurity · مجموعة COSIC العالمية للتشفير</small></div>
+    </div></div>
   </section>
 
   <!-- PRIVEE -->
@@ -301,6 +418,7 @@ function go(id){document.querySelectorAll('section').forEach(s=>s.classList.remo
 var MASSAR_URL="https://massarservice.men.gov.ma/moutamadris/";
 function toggleMassar(){document.querySelector('.massar').classList.toggle('open');}
 function goMassar(){window.open(MASSAR_URL,'_blank','noopener');}
+document.addEventListener('click',function(e){var h=e.target.closest?e.target.closest('.subject>h3'):null;if(h&&h.parentNode){h.parentNode.classList.toggle('open');}});
 var CYBER_PASS="3121645497870000";var cyberUnlocked=false;
 function goCyber(){if(cyberUnlocked){go('cyber');return;}var p=window.prompt("\uD83D\uDD12 هذا القسم محمي — المرجو إدخال كلمة السر\nSection protégée — Veuillez saisir le mot de passe :");if(p===null){return;}if(p.trim()===CYBER_PASS){cyberUnlocked=true;go('cyber');}else{alert("\u274C كلمة السر غير صحيحة\nMot de passe incorrect");}}
 function yt(q,kids){return 'https://www.youtube.com/results?search_query='+encodeURIComponent(q+(kids?' شرح للأطفال':' شرح الدرس كامل'));}
