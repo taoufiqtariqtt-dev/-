@@ -1024,5 +1024,30 @@ Object.assign(CURR,{
 }
 });
 /*OVR*/
+/* ===== إكمال المواد الناقصة (تربية إسلامية / عربية / إنجليزية) ===== */
+(function(){
+var ISL=[['مدخل التزكية','الإيمان والغيب وتزكية النفس.'],['مدخل الاقتداء','من هدي الرسول ⷮ في القيم والسلوك.'],['مدخل الاستجابة','أحكام شرعية وقيم عملية.'],['مدخل الحكمة','التفكر والاعتبار والعقل.'],['مدخل القسط','الحقوق والواجبات والعدل.']];
+var ARB=[['المؤلفات','دراسة المؤلف المقرر.'],['النصوص','تحليل النصوص القرائية.'],['الدرس اللغوي','الأساليب والبلاغة.'],['التعبير والإنشاء','منهجية الكتابة.']];
+var ENG=[['Reading & Writing','فهم النصوص والتعبير.'],['Grammar & Vocabulary','القواعد والمفردات.']];
+var kIsl='التربية الإسلامية|Éduc. Islamique|🕌';
+var kArb='اللغة العربية|Arabe|📖';
+var kEng='اللغة الإنجليزية|Anglais|🇬🇧';
+['1BST','1BECO','2BPC','2BSVT','2BSMA','2BSMB','2BSTE','2BSTM','2BECO','2BLSH'].forEach(function(id){ if(CURR[id]&&!CURR[id][kIsl]) CURR[id][kIsl]=ISL.slice(); });
+['1BSM','1BST','1BECO'].forEach(function(id){ if(CURR[id]&&!CURR[id][kArb]) CURR[id][kArb]=ARB.slice(); });
+['2BECO'].forEach(function(id){ if(CURR[id]&&!CURR[id][kEng]) CURR[id][kEng]=ENG.slice(); });
+})();
+/* ===== مواد عامة إضافية (التربية البدنية / المعلوميات / الإنجليزية بالابتدائي) ===== */
+(function(){
+var EPS=[['اللياقة البدنية','تمارين الإحماء والجري والتحمل.'],['الألعاب الجماعية','كرة القدم والسلة والطائرة وروح الفريق.'],['ألعاب القوى','العدو والوثب والرمي.'],['الجمباز والمرونة','التوازن والرشاقة والمرونة.']];
+var INFO=[['مكونات الحاسوب','العتاد والبرمجيات.'],['نظام التشغيل','الملفات والمجلدات.'],['معالجة النصوص','تنسيق الوثائق.'],['الإنترنت والأمان','البحث الآمن والسلوك الرقمي.']];
+var ENGK=[['Hello & Classroom','التحية وكلمات القسم.'],['Numbers & Colors','الأعداد والألوان.'],['Family & Animals','العائلة والحيوانات.'],['Days & Food','أيام الأسبوع والأطعمة.']];
+var kEps='التربية البدنية|EPS · Sport|⚽';
+var kInfo='المعلوميات|Informatique|💻';
+var kEng='اللغة الإنجليزية|Anglais|🇬🇧';
+var ALL=['L1','L2','L3','L4','L5','L6','C1','C2','C3','TCS','TCT','1BSE','1BSM','1BST','1BECO','1BLSH','2BPC','2BSVT','2BSMA','2BSMB','2BSTE','2BSTM','2BECO','2BLSH'];
+ALL.forEach(function(id){ if(CURR[id]&&!CURR[id][kEps]) CURR[id][kEps]=EPS.slice(); });
+['C2','C3'].forEach(function(id){ if(CURR[id]&&!CURR[id][kInfo]) CURR[id][kInfo]=INFO.slice(); });
+['L1','L2','L3','L4'].forEach(function(id){ if(CURR[id]&&!CURR[id][kEng]) CURR[id][kEng]=ENGK.slice(); });
+})();
 buildGraded('pionniere',GRADES); buildGraded('lycee',GRADES_LY); renderCyberFull();
 </script></body></html>
