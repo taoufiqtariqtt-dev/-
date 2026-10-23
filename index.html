@@ -206,6 +206,25 @@ body.light footer{background:rgba(255,255,255,.6)}
 /* ===== DEV MODE + AI CHAT ===== */
 .dev-btn{cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#7a5cff,#4a2cff);border:1px solid rgba(150,120,255,.7);color:#fff;border-radius:999px;padding:8px 14px;font-weight:700;font-size:12px;font-family:'Orbitron',sans-serif;box-shadow:0 0 20px rgba(120,90,255,.5);transition:.25s}
 .dev-btn:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(120,90,255,.85)}
+.devops-btn{cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#ff2d4d,#b00020);border:1px solid rgba(255,80,100,.85);color:#fff;border-radius:999px;padding:8px 14px;font-weight:800;font-size:12px;font-family:'Cairo',sans-serif;box-shadow:0 0 22px rgba(255,45,77,.6);transition:.25s;animation:dangerPulse 1.8s ease-in-out infinite}
+.devops-btn:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(255,45,77,.95)}
+@keyframes dangerPulse{0%,100%{box-shadow:0 0 16px rgba(255,45,77,.45)}50%{box-shadow:0 0 30px rgba(255,45,77,.95)}}
+.devops-panel{display:none;flex-direction:column;gap:10px;width:285px;background:linear-gradient(135deg,rgba(60,0,10,.96),rgba(18,0,5,.97));border:1.5px solid rgba(255,60,80,.7);border-radius:16px;padding:16px;box-shadow:0 10px 40px rgba(180,0,20,.5);backdrop-filter:blur(10px)}
+.devops-panel.open{display:flex;animation:fadeIn .3s ease}
+.devops-title{color:#ff6b7f;font-size:14px;font-weight:900;text-align:center;line-height:1.5;text-shadow:0 0 10px rgba(255,45,77,.6)}
+.devops-title small{display:block;font-family:'Orbitron',sans-serif;font-size:9px;color:#ffb3bd;font-weight:400;margin-top:3px}
+.devops-warn{font-size:11px;color:#ffb3bd;text-align:center;line-height:1.6;background:rgba(255,45,77,.12);border:1px dashed rgba(255,80,100,.5);border-radius:10px;padding:8px}
+.devops-inp{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,60,80,.5);background:rgba(20,0,5,.7);color:#fff;font-family:'Cairo';font-size:14px;outline:none;text-align:center;letter-spacing:2px}
+.devops-inp:focus{border-color:#ff2d4d;box-shadow:0 0 10px rgba(255,45,77,.4)}
+.devops-submit{cursor:pointer;border:none;border-radius:10px;padding:11px;font-family:'Cairo';font-size:15px;font-weight:800;color:#fff;background:linear-gradient(135deg,#ff2d4d,#b00020);box-shadow:0 4px 14px rgba(255,45,77,.4);transition:.2s}
+.devops-submit:hover{transform:translateY(-2px)}
+.devops-msg{font-size:12px;text-align:center;line-height:1.6;color:#ff8aa0;min-height:1px}
+.devops-stats{display:none;flex-direction:column;gap:8px}
+.devops-stats.show{display:flex;animation:fadeIn .3s ease}
+.devops-stat{background:rgba(255,45,77,.1);border:1px solid rgba(255,80,100,.4);border-radius:10px;padding:10px 12px;color:#ffd0d6;font-size:13px}
+.devops-stat b{color:#ff6b7f;font-family:'Orbitron',sans-serif}
+.devops-log{max-height:150px;overflow-y:auto;background:rgba(10,0,3,.6);border:1px solid rgba(255,60,80,.3);border-radius:10px;padding:8px;font-size:11.5px;color:#ffc2ca;line-height:1.7;margin-top:6px;text-align:right}
+.devops-log .row{border-bottom:1px dashed rgba(255,80,100,.2);padding:3px 0}
 .dev-hero{text-align:center;padding:26px 18px;border-radius:20px;background:linear-gradient(135deg,rgba(120,90,255,.18),rgba(10,15,40,.6));border:1px solid rgba(150,120,255,.5);margin-bottom:22px}
 .dev-hero .big{font-size:clamp(18px,3.6vw,30px);font-weight:900;color:#c7b8ff;text-shadow:0 0 20px rgba(120,90,255,.5);line-height:1.5}
 .dev-hero .fr{color:#a99fff;font-family:'Orbitron';letter-spacing:1px;margin-top:8px;font-size:clamp(9px,1.8vw,12px)}
@@ -236,6 +255,22 @@ body.light footer{background:rgba(255,255,255,.6)}
   <button class="pro-btn" id="proBtn">🔓 <span class="ar">تسجيل الدخول لنسخة البرو</span> <span class="fr">Pro</span></button>
   <div class="pro-badge" id="proBadge">⭐ <span class="ar">نسخة البرو</span> <span class="fr">Version Pro</span></div>
   <button class="dev-btn" id="devBtn">👨‍💻 Mode Développeurs</button>
+  <button class="devops-btn" id="devopsBtn">🛡️ للمطورين فقط</button>
+  <div class="devops-panel" id="devopsPanel">
+    <div class="devops-title">⛔ منطقة المطورين فقط<small>Espace Développeurs · Accès restreint</small></div>
+    <div class="devops-warn">⚠️ خانة محمية خاصة بالمطورين فقط — الدخول غير المصرّح به ممنوع.</div>
+    <input class="devops-inp" id="devopsCode" type="password" autocomplete="off" placeholder="🔒 الرمز السري">
+    <button class="devops-submit" id="devopsSubmit">فتح · Accéder</button>
+    <div class="devops-msg" id="devopsMsg"></div>
+    <div class="devops-stats" id="devopsStats">
+      <div class="devops-title" style="font-size:12px">📊 إحصائيات الزوار · Statistiques</div>
+      <div class="devops-stat">👥 إجمالي الزيارات (كل الزوار عبر الأنترنت):<br><b id="devopsTotal" style="font-size:20px">…</b></div>
+      <div class="devops-stat">💻 الزيارات من هذا الجهاز: <b id="devopsLocal" style="font-size:16px">0</b></div>
+      <div class="devops-stat">📝 سجل آخر الدخول والأسماء:
+        <div class="devops-log" id="devopsLogList"></div>
+      </div>
+    </div>
+  </div>
   <div class="pro-panel" id="proPanel">
     <div class="pro-title">🔐 تسجيل الدخول إلى نسخة البرو<small>Connexion à la version Pro</small></div>
     <input class="pro-inp" id="proEmail" type="text" autocomplete="off" placeholder="📧 البريد / Email">
@@ -1195,6 +1230,7 @@ ALL.forEach(function(id){ if(CURR[id]&&!CURR[id][kEps]) CURR[id][kEps]=EPS.slice
   if(submit) submit.addEventListener('click',function(){
     var e=(document.getElementById('proEmail').value||'').trim();
     var p=(document.getElementById('proPass').value||'').trim();
+    try{ if(window.DEVOPS_rec) window.DEVOPS_rec(e, (e===PRO_EMAIL && p===PRO_PASS)); }catch(_dv){}
     if(e===PRO_EMAIL && p===PRO_PASS){
       msg.className='pro-msg ok';
       msg.textContent='🎉 تهانينا! تم تسجيلك في نسخة البرو · Félicitations, vous êtes inscrit à la version Pro';
@@ -1205,6 +1241,60 @@ ALL.forEach(function(id){ if(CURR[id]&&!CURR[id][kEps]) CURR[id][kEps]=EPS.slice
       msg.textContent='⚠️ بيانات الدخول غير صحيحة · Identifiants incorrects';
     }
   });
+})();
+/* ===== خانة المطورين: إحصائيات الزوار ===== */
+(function(){
+  var DEV_CODE='06623839863';
+  var NS='ecole-pionniere-larache', KEY='visits';
+  var btn=document.getElementById('devopsBtn'), panel=document.getElementById('devopsPanel'),
+      sub=document.getElementById('devopsSubmit'), code=document.getElementById('devopsCode'),
+      msg=document.getElementById('devopsMsg'), stats=document.getElementById('devopsStats'),
+      elTotal=document.getElementById('devopsTotal'), elLocal=document.getElementById('devopsLocal'),
+      elLog=document.getElementById('devopsLogList');
+  if(!btn) return;
+  function getLog(){ try{ return JSON.parse(localStorage.getItem('devVisitLog')||'[]'); }catch(e){ return []; } }
+  function setLog(a){ try{ localStorage.setItem('devVisitLog', JSON.stringify(a.slice(-200))); }catch(e){} }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function fmt(ts){ try{ return new Date(ts).toLocaleString('ar-MA'); }catch(e){ return new Date(ts).toLocaleString(); } }
+  function pushEntry(type,name){ var a=getLog(); a.push({t:Date.now(),type:type,name:name||''}); setLog(a); }
+  /* تسجيل زيارة واحدة لكل جلسة */
+  try{
+    if(!sessionStorage.getItem('devVisited')){
+      sessionStorage.setItem('devVisited','1');
+      var n=parseInt(localStorage.getItem('devLocalCount')||'0',10)+1;
+      localStorage.setItem('devLocalCount', n);
+      pushEntry('زائر 👤','');
+      fetch('https://abacus.jasoncameron.dev/hit/'+NS+'/'+KEY).catch(function(){});
+    }
+  }catch(e){}
+  /* متاح لتسجيل أسماء دخول البرو */
+  window.DEVOPS_rec=function(email, ok){ pushEntry(ok?'دخول برو ✅':'محاولة دخول ❌', email); };
+  function renderStats(){
+    try{ elLocal.textContent = localStorage.getItem('devLocalCount')||'0'; }catch(e){ elLocal.textContent='0'; }
+    var a=getLog().slice().reverse();
+    elLog.innerHTML = a.length ? a.map(function(x){
+      return '<div class="row">🕒 '+fmt(x.t)+' — <b>'+esc(x.type)+'</b>'+(x.name?(' · '+esc(x.name)):'')+'</div>';
+    }).join('') : '<div class="row">لا يوجد سجل بعد.</div>';
+    elTotal.textContent='…';
+    fetch('https://abacus.jasoncameron.dev/get/'+NS+'/'+KEY)
+      .then(function(r){ return r.json(); })
+      .then(function(j){ elTotal.textContent=(j&&j.value!=null)? j.value : '—'; })
+      .catch(function(){ elTotal.textContent='تعذّر الجلب'; });
+  }
+  btn.addEventListener('click',function(){
+    panel.classList.toggle('open');
+    if(!panel.classList.contains('open')){ stats.classList.remove('show'); msg.textContent=''; code.value=''; }
+  });
+  sub.addEventListener('click',function(){
+    if((code.value||'').trim()===DEV_CODE){
+      msg.style.color='#5effa8'; msg.textContent='✅ تم فتح لوحة المطورين';
+      stats.classList.add('show'); renderStats();
+    } else {
+      msg.style.color='#ff8aa0'; msg.textContent='⛔ رمز خاطئ · Code incorrect';
+      stats.classList.remove('show');
+    }
+  });
+  code.addEventListener('keydown',function(ev){ if(ev.key==='Enter'){ ev.preventDefault(); sub.click(); } });
 })();
 /* ===== زر وضع المطورين + مساعد الذكاء الاصطناعي ===== */
 (function(){
