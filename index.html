@@ -94,6 +94,8 @@ body{
 .navbtn.lyc:hover{box-shadow:0 0 46px rgba(170,120,255,.6)}
 .navbtn.uni{box-shadow:0 0 30px rgba(255,196,0,.25);border-color:rgba(255,196,0,.6)}
 .navbtn.uni:hover{box-shadow:0 0 46px rgba(255,196,0,.55)}
+.navbtn.ofp{box-shadow:0 0 30px rgba(29,219,122,.25);border-color:rgba(29,219,122,.55)}
+.navbtn.ofp:hover{box-shadow:0 0 46px rgba(29,219,122,.6)}
 @keyframes redpulse{0%,100%{box-shadow:0 0 25px rgba(255,45,85,.35)}50%{box-shadow:0 0 50px rgba(255,45,85,.75)}}
 /* ===== SECTIONS ===== */
 section{display:none;animation:fadeIn .5s ease}
@@ -302,6 +304,7 @@ body.light footer{background:rgba(255,255,255,.6)}
       <button class="navbtn lyc" onclick="go('lycee')"><span class="ic">🏛️</span><span class="ar">الثانوية التأهيلية</span><span class="fr">LYCÉE · OPTION FRANÇAISE</span></button>
       <button class="navbtn uni" onclick="go('universite')"><span class="ic">🎓🌐</span><span class="ar">الجامعة</span><span class="fr">UNIVERSITÉ · FILIÈRES & SPÉCIALITÉS</span></button>
       <button class="navbtn pri" onclick="go('privee')"><span class="ic">🎓</span><span class="ar">المدرسة الخصوصية</span><span class="fr">ÉCOLE PRIVÉE</span></button>
+      <button class="navbtn ofp" onclick="go('ofppt')"><span class="ic">🛠️💼</span><span class="ar">التكوين المهني</span><span class="fr">FORMATION PROFESSIONNELLE · OFPPT</span></button>
       <button class="navbtn cyb" onclick="goCyber()"><span class="ic">🛡️🔒</span><span class="ar">خاص بطلاب الأمن السيبراني</span><span class="fr">RÉSERVÉ · CYBERSÉCURITÉ</span></button>
     </div>
   </section>
@@ -439,6 +442,22 @@ body.light footer{background:rgba(255,255,255,.6)}
     <div class="cats" id="cats-privee"></div>
     <div class="tabs" id="tabs-privee"></div>
     <div id="content-privee"></div>
+  </section>
+
+  <!-- OFPPT / FORMATION PROFESSIONNELLE -->
+  <section id="ofppt">
+    <div class="sec-head">
+      <div><h2>التكوين المهني <span style="font-size:14px;color:#9fd9ff;font-family:Orbitron">Formation Professionnelle</span></h2><div class="city">🛠️ الشعب والمستويات والوحدات · OFPPT</div></div>
+      <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
+    </div>
+    <div class="notice">
+      <div class="nt">🎓 ما هو التكوين المهني؟</div>
+      <div class="nd">التكوين المهني مسار يُكسِبك مهارة عملية وديبلوماً مهنياً جاهزاً لسوق الشغل. ينقسم إلى 4 مستويات: التخصص، التأهيل، التقني، والتقني المتخصص.
+      <span class="nf">4 niveaux · Spécialisation · Qualification · Technicien · Technicien Spécialisé</span></div>
+    </div>
+    <div class="cats" id="cats-ofppt"></div>
+    <div class="tabs" id="tabs-ofppt"></div>
+    <div id="content-ofppt"></div>
   </section>
 
   <!-- CYBER -->
@@ -727,6 +746,46 @@ const GRADES_LY=[
  ]}
 ];
 const GRADES_ALL=GRADES.concat(GRADES_LY);
+const GRADES_FP=[
+ {cat:'🎓 تقني متخصص · Technicien Spécialisé (Bac+2)', items:[
+  {id:'FP_TS_DEV',ar:'التطوير الرقمي',fr:'Dév. Digital',g:'تقني متخصص في التطوير الرقمي',kids:false},
+  {id:'FP_TS_INFRA',ar:'البنيات الرقمية والشبكات',fr:'Infrastructure Digitale',g:'تقني متخصص في البنيات الرقمية والشبكات',kids:false},
+  {id:'FP_TS_GEST',ar:'تدبير المقاولات',fr:'Gestion des Entreprises',g:'تقني متخصص في تدبير المقاولات',kids:false},
+  {id:'FP_TS_COM',ar:'التجارة والتسويق',fr:'Commerce & Marketing',g:'تقني متخصص في التجارة والتسويق',kids:false},
+  {id:'FP_TS_COMPTA',ar:'المحاسبة والمالية',fr:'Comptabilité-Finance',g:'تقني متخصص في التدبير المحاسباتي',kids:false},
+  {id:'FP_TS_ELEC',ar:'الكهرباء والميكاترونيك',fr:'Électromécanique',g:'تقني متخصص في الكهرباء والميكاترونيك',kids:false},
+  {id:'FP_TS_MECA',ar:'الهندسة الميكانيكية',fr:'Génie Mécanique',g:'تقني متخصص في الهندسة الميكانيكية',kids:false},
+  {id:'FP_TS_HOTEL',ar:'الفندقة والسياحة',fr:'Tourisme-Hôtellerie',g:'تقني متخصص في الفندقة والسياحة',kids:false},
+  {id:'FP_TS_LOG',ar:'اللوجستيك والنقل',fr:'Logistique',g:'تقني متخصص في اللوجستيك',kids:false},
+  {id:'FP_TS_BTP',ar:'البناء والأشغال العمومية',fr:'BTP',g:'تقني متخصص في البناء والأشغال العمومية',kids:false},
+  {id:'FP_TS_SANTE',ar:'المهن شبه الطبية',fr:'Santé',g:'تقني متخصص في المهن شبه الطبية',kids:false},
+  {id:'FP_TS_AUDIO',ar:'السمعي البصري والمونتاج',fr:'Audiovisuel',g:'تقني متخصص في السمعي البصري',kids:false}
+ ]},
+ {cat:'🔧 تقني · Technicien', items:[
+  {id:'FP_T_DEV',ar:'الإعلاميات',fr:'Informatique',g:'تقني في تقنيات تطوير المعلوميات',kids:false},
+  {id:'FP_T_COMPTA',ar:'المحاسبة',fr:'Comptabilité',g:'تقني في المحاسبة',kids:false},
+  {id:'FP_T_COM',ar:'التجارة',fr:'Commerce',g:'تقني في التجارة',kids:false},
+  {id:'FP_T_ELEC',ar:'الكهرباء',fr:'Électricité',g:'تقني في التركيبات الكهربائية',kids:false},
+  {id:'FP_T_AUTO',ar:'ميكانيك السيارات',fr:'Mécanique Auto',g:'تقني في تشخيص وإصلاح السيارات',kids:false},
+  {id:'FP_T_CUIS',ar:'الطبخ والطهي',fr:'Cuisine',g:'تقني في فنون الطبخ',kids:false},
+  {id:'FP_T_COUT',ar:'الخياطة والتفصيل',fr:'Couture',g:'تقني في الخياطة والتفصيل',kids:false}
+ ]},
+ {cat:'🛠️ التأهيل · Qualification', items:[
+  {id:'FP_Q_COIF',ar:'الحلاقة والتجميل',fr:'Coiffure-Esthétique',g:'التأهيل في الحلاقة والتجميل',kids:false},
+  {id:'FP_Q_COUT',ar:'الخياطة',fr:'Couture',g:'التأهيل في الخياطة',kids:false},
+  {id:'FP_Q_ELEC',ar:'الكهرباء المنزلية',fr:'Électricité Bâtiment',g:'التأهيل في الكهرباء المنزلية',kids:false},
+  {id:'FP_Q_AUTO',ar:'ميكانيك السيارات',fr:'Mécanique Auto',g:'التأهيل في ميكانيك السيارات',kids:false},
+  {id:'FP_Q_MENUI',ar:'النجارة',fr:'Menuiserie',g:'التأهيل في النجارة',kids:false},
+  {id:'FP_Q_SOUD',ar:'اللحام',fr:'Soudure',g:'التأهيل في اللحام',kids:false}
+ ]},
+ {cat:'⚙️ التخصص · Spécialisation', items:[
+  {id:'FP_S_MACON',ar:'البناء',fr:'Maçonnerie',g:'التخصص في البناء',kids:false},
+  {id:'FP_S_COUT',ar:'الخياطة',fr:'Couture',g:'التخصص في الخياطة',kids:false},
+  {id:'FP_S_COIF',ar:'الحلاقة',fr:'Coiffure',g:'التخصص في الحلاقة',kids:false},
+  {id:'FP_S_AGRI',ar:'الفلاحة',fr:'Agriculture',g:'التخصص في الفلاحة',kids:false},
+  {id:'FP_S_PLOMB',ar:'السباكة',fr:'Plomberie',g:'التخصص في السباكة',kids:false}
+ ]}
+];
 function buildGraded(where,grades){
   const cb=document.getElementById('cats-'+where); const st={cur:0}; let c='';
   grades.forEach((g,i)=>{ c+='<button class="catbtn'+(i===0?' on':'')+'" data-c="'+i+'">'+g.cat+'</button>'; });
@@ -1193,5 +1252,47 @@ ALL.forEach(function(id){ if(CURR[id]&&!CURR[id][kEps]) CURR[id][kEps]=EPS.slice
   if(inp) inp.addEventListener('keydown',function(e){ if(e.key==='Enter') submit(); });
   bot('مرحباً 👋 أنا مساعدك الذكي لبناء مستقبلك من الصفر.\nسأطرح عليك بضع أسئلة ثم أرسم لك خطة واضحة خطوة بخطوة.\nلنبدأ: <b>ما اسمك؟</b>');
 })();
-buildGraded('pionniere',GRADES); buildGraded('lycee',GRADES_LY); buildGraded('privee',GRADES_ALL); renderCyberFull();
+/*FP_DATA*/
+Object.assign(CURR,{
+'FP_TS_DEV':{'الوحدات التكوينية|Modules|💻':[['أساسيات الخوارزميات','المنطق والخوارزميات وهياكل المعطيات.'],['برمجة الويب Front-End','HTML و CSS و JavaScript.'],['برمجة Back-End','PHP / Node.js وقواعد البيانات MySQL.'],['الأطر والتطبيقات','Laravel / React و Git.'],['مشروع التخرج','إنجاز تطبيق كامل.']]},
+'FP_TS_INFRA':{'الوحدات التكوينية|Modules|🌐':[['أساسيات الشبكات','نموذج OSI و TCP/IP والعناوين.'],['تجهيز الشبكات','Switch و Routeur و VLAN و Cisco.'],['أنظمة التشغيل','Windows Server و Linux.'],['أمن الشبكات','Firewall و VPN وحماية البنية.'],['الحوسبة السحابية','Cloud و Virtualisation.']]},
+'FP_TS_GEST':{'الوحدات التكوينية|Modules|📊':[['تدبير الموارد البشرية','التوظيف والأجور.'],['التدبير المالي','الميزانية والتدفقات.'],['التسويق','دراسة السوق والمزيج التسويقي.'],['القانون التجاري','المقاولة والعقود.'],['تدبير المشاريع','التخطيط والتتبع.']]},
+'FP_TS_COM':{'الوحدات التكوينية|Modules|🛍️':[['تقنيات البيع','التفاوض وإبرام الصفقات.'],['التسويق الرقمي','Social Media و SEO و الإشهار.'],['تدبير الزبناء','CRM والوفاء.'],['دراسة السوق','تحليل المنافسة.'],['التجارة الإلكترونية','المتاجر الرقمية.']]},
+'FP_TS_COMPTA':{'الوحدات التكوينية|Modules|🧮':[['المحاسبة العامة','القيود والدفاتر.'],['المحاسبة التحليلية','حساب التكاليف.'],['الجبايات','الضريبة على القيمة المضافة و IS.'],['المعلوميات المحاسباتية','Sage و Excel.'],['التحليل المالي','النسب والتوازن.']]},
+'FP_TS_ELEC':{'الوحدات التكوينية|Modules|⚡':[['الكهرباء العامة','الدوائر والقياسات.'],['الإلكترونيك','المكونات والدوائر.'],['الأنظمة المؤتمتة','API و Automate.'],['المحركات الكهربائية','التحكم والصيانة.'],['الميكاترونيك','دمج الميكانيك والإلكترونيك.']]}
+});
+Object.assign(CURR,{
+'FP_TS_MECA':{'الوحدات التكوينية|Modules|⚙️':[['الرسم التقني','DAO و SolidWorks.'],['المناهج والإنتاج','تنظيم الورشات.'],['التصنيع بالتحكم الرقمي','CNC.'],['مقاومة المواد','الحسابات الميكانيكية.'],['الصيانة الصناعية','الوقائية والإصلاحية.']]},
+'FP_TS_HOTEL':{'الوحدات التكوينية|Modules|🏨':[['الاستقبال Reception','تدبير الحجوزات.'],['خدمات الإيواء','تنظيم الغرف.'],['فن المطاعم','Restauration.'],['السياحة','تنظيم الرحلات والأسفار.'],['اللغات','الفرنسية والإنجليزية المهنية.']]},
+'FP_TS_LOG':{'الوحدات التكوينية|Modules|🚚':[['تدبير المخزون','Stock و Inventaire.'],['النقل والتوزيع','Transport.'],['سلسلة الإمداد','Supply Chain.'],['الجمارك والتصدير','المساطر الجمركية.'],['نظم المعلومات','WMS / ERP.']]},
+'FP_TS_BTP':{'الوحدات التكوينية|Modules|🏗️':[['الرسم المعماري','AutoCAD.'],['تقنيات البناء','الخرسانة والهياكل.'],['تتبع الأوراش','Conduite de chantier.'],['الطوبوغرافيا','القياسات والتصميم.'],['تقدير التكاليف','Métré والصفقات.']]},
+'FP_TS_SANTE':{'الوحدات التكوينية|Modules|🏥':[['التشريح والفيزيولوجيا','جسم الإنسان.'],['التمريض العام','العناية بالمرضى.'],['الإسعافات الأولية','التدخل السريع.'],['الصحة العمومية','الوقاية والنظافة.'],['التدريب السريري','في المستشفيات.']]},
+'FP_TS_AUDIO':{'الوحدات التكوينية|Modules|🎬':[['التصوير','الكاميرا والإضاءة.'],['المونتاج','Premiere و DaVinci.'],['الصوت','التسجيل والمعالجة.'],['التصميم والغرافيك','Motion Design.'],['الإنتاج','السيناريو والإخراج.']]}
+});
+Object.assign(CURR,{
+'FP_T_DEV':{'الوحدات التكوينية|Modules|💻':[['أساسيات البرمجة','المتغيرات والدوال.'],['قواعد البيانات','SQL والجداول.'],['تطوير المواقع','HTML/CSS/JS.'],['الصيانة المعلوماتية','العتاد والشبكة.']]},
+'FP_T_COMPTA':{'الوحدات التكوينية|Modules|🧮':[['مبادئ المحاسبة','القيود الأساسية.'],['تدبير الفواتير','المشتريات والمبيعات.'],['الأجور','إعداد الرواتب.'],['المعلوميات المحاسباتية','Sage و Excel.']]},
+'FP_T_COM':{'الوحدات التكوينية|Modules|🛍️':[['تقنيات البيع','التواصل مع الزبون.'],['التسويق','أساسيات الماركتينغ.'],['تسيير المتجر','العرض والمخزون.'],['المحاسبة التجارية','الفواتير والتسديد.']]},
+'FP_T_ELEC':{'الوحدات التكوينية|Modules|⚡':[['التركيبات المنزلية','الأسلاك والحماية.'],['التركيبات الصناعية','اللوحات الكهربائية.'],['القياسات','الأجهزة والأعطاب.'],['السلامة الكهربائية','معايير الوقاية.']]},
+'FP_T_AUTO':{'الوحدات التكوينية|Modules|🚗':[['المحرك','مبدأ الاشتغال والصيانة.'],['الكهرباء والإلكترونيك','أنظمة السيارة.'],['التشخيص','Diagnostic بالحاسوب.'],['نظام الفرامل والتعليق','الإصلاح.']]},
+'FP_T_CUIS':{'الوحدات التكوينية|Modules|🍳':[['أساسيات الطبخ','التقنيات الأساسية.'],['المطبخ المغربي والعالمي','الوصفات.'],['الحلويات','Pâtisserie.'],['النظافة الغذائية','HACCP.']]},
+'FP_T_COUT':{'الوحدات التكوينية|Modules|✂️':[['القياس والتفصيل','أخذ المقاسات.'],['الخياطة','آلات الخياطة والغرز.'],['النماذج','Patronage.'],['تصميم الأزياء','الموضة والابتكار.']]}
+});
+Object.assign(CURR,{
+'FP_Q_COIF':{'الوحدات التكوينية|Modules|💇':[['قص الشعر وتصفيفه','التقنيات الأساسية.'],['الصباغة','ألوان الشعر.'],['التجميل','Maquillage والعناية بالبشرة.'],['نظافة الأدوات','التعقيم والسلامة.']]},
+'FP_Q_COUT':{'الوحدات التكوينية|Modules|✂️':[['الخياطة الأساسية','الغرز والدروز.'],['التفصيل','أخذ المقاسات.'],['اللباس التقليدي','الجلابة والقفطان.'],['الصيانة','إصلاح الملابس.']]},
+'FP_Q_ELEC':{'الوحدات التكوينية|Modules|⚡':[['التركيب الكهربائي','أسلاك المنزل.'],['التركيبات المؤمنة','الحماية والأرضي.'],['الإنارة','التركيب والتحكم.'],['الأعطاب','تشخيص الأعطاب.']]},
+'FP_Q_AUTO':{'الوحدات التكوينية|Modules|🔧':[['ميكانيك المحرك','الفك والتركيب.'],['الفرامل والتعليق','الصيانة.'],['التزييت','تغيير الزيت والفلاتر.'],['التشخيص الأولي','الأعطاب الشائعة.']]},
+'FP_Q_MENUI':{'الوحدات التكوينية|Modules|🪚':[['القياس والقطع','الخشب وأدواته.'],['التجميع','تركيب القطع.'],['الأثاث','صناعة الخزانات والطاولات.'],['التشطيب','الصقل والطلاء.']]},
+'FP_Q_SOUD':{'الوحدات التكوينية|Modules|🔥':[['أنواع اللحام','القوس و MIG/TIG.'],['قراءة المخططات','الرسوم التقنية.'],['السلامة','معدات الوقاية.'],['التركيب المعدني','الهياكل.']]}
+});
+Object.assign(CURR,{
+'FP_S_MACON':{'الوحدات التكوينية|Modules|🧱':[['أساسيات البناء','المواد والخلطات.'],['الجدران','الطوب والآجور.'],['الصب','الخرسانة المسلحة.'],['التلبيس','Enduit والتشطيب.']]},
+'FP_S_COUT':{'الوحدات التكوينية|Modules|✂️':[['الغرز الأساسية','اليدوية والآلية.'],['التفصيل البسيط','الملابس اليومية.'],['الإصلاح','ترميم الملابس.']]},
+'FP_S_COIF':{'الوحدات التكوينية|Modules|💇':[['القص الأساسي','تقنيات البداية.'],['التصفيف','التسريح والتنظيف.'],['النظافة','تعقيم الأدوات.']]},
+'FP_S_AGRI':{'الوحدات التكوينية|Modules|🌱':[['الفلاحة الأساسية','إعداد الأرض.'],['السقي','تقنيات الري.'],['الزراعة','البذور والغراسة.'],['الوقاية','مكافحة الآفات.']]},
+'FP_S_PLOMB':{'الوحدات التكوينية|Modules|🚰':[['التركيب الصحي','الأنابيب والوصلات.'],['التوزيع','الماء البارد والساخن.'],['الصرف الصحي','التصريف.'],['الإصلاح','تصليح التسربات.']]}
+});
+/*FP_DATA*/
+buildGraded('pionniere',GRADES); buildGraded('lycee',GRADES_LY); buildGraded('privee',GRADES_ALL); buildGraded('ofppt',GRADES_FP); renderCyberFull();
 </script></body></html>
