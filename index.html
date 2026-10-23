@@ -201,6 +201,27 @@ body.light footer{background:rgba(255,255,255,.6)}
 .pro-msg.ok{color:#5effa8;font-weight:800}
 .pro-msg.err{color:#ff8aa0;font-weight:700}
 @media(max-width:560px){.pro-panel{width:220px}.pro-btn,.pro-badge{font-size:12px;padding:7px 11px}}
+/* ===== DEV MODE + AI CHAT ===== */
+.dev-btn{cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#7a5cff,#4a2cff);border:1px solid rgba(150,120,255,.7);color:#fff;border-radius:999px;padding:8px 14px;font-weight:700;font-size:12px;font-family:'Orbitron',sans-serif;box-shadow:0 0 20px rgba(120,90,255,.5);transition:.25s}
+.dev-btn:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(120,90,255,.85)}
+.dev-hero{text-align:center;padding:26px 18px;border-radius:20px;background:linear-gradient(135deg,rgba(120,90,255,.18),rgba(10,15,40,.6));border:1px solid rgba(150,120,255,.5);margin-bottom:22px}
+.dev-hero .big{font-size:clamp(18px,3.6vw,30px);font-weight:900;color:#c7b8ff;text-shadow:0 0 20px rgba(120,90,255,.5);line-height:1.5}
+.dev-hero .fr{color:#a99fff;font-family:'Orbitron';letter-spacing:1px;margin-top:8px;font-size:clamp(9px,1.8vw,12px)}
+.ai-wrap{max-width:720px;margin:0 auto;border:1px solid rgba(150,120,255,.45);border-radius:20px;background:rgba(8,10,30,.55);overflow:hidden;box-shadow:0 0 30px rgba(120,90,255,.2)}
+.ai-head{padding:14px 18px;background:linear-gradient(135deg,rgba(120,90,255,.25),rgba(10,15,40,.4));font-weight:800;color:#d8ccff;border-bottom:1px solid rgba(150,120,255,.35);display:flex;flex-direction:column;gap:3px}
+.ai-head span{font-family:'Orbitron';font-size:10px;color:#a99fff;font-weight:400;direction:ltr}
+.ai-chat{height:400px;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.ai-chat .msg{max-width:84%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.75;white-space:pre-wrap;word-wrap:break-word}
+.ai-chat .msg.bot{align-self:flex-start;background:rgba(120,90,255,.15);border:1px solid rgba(150,120,255,.4);color:#eae3ff;border-bottom-right-radius:4px}
+.ai-chat .msg.user{align-self:flex-end;background:linear-gradient(135deg,#1ddb7a,#0fae5e);color:#042814;font-weight:700;border-bottom-left-radius:4px}
+.ai-chat .msg.bot b{color:#c7b8ff}
+.ai-chat .msg.bot u{color:#ffd35c;text-decoration:none;font-weight:800}
+.ai-input{display:flex;gap:10px;padding:14px 16px;border-top:1px solid rgba(150,120,255,.35);background:rgba(5,8,24,.5)}
+.ai-inp{flex:1;padding:12px 14px;border-radius:12px;border:1px solid rgba(150,120,255,.45);background:rgba(5,12,30,.7);color:#fff;font-family:'Cairo';font-size:15px;outline:none}
+.ai-inp:focus{border-color:#9a7cff;box-shadow:0 0 12px rgba(120,90,255,.3)}
+.ai-send{cursor:pointer;border:none;border-radius:12px;padding:12px 20px;font-family:'Cairo';font-weight:800;font-size:15px;color:#fff;background:linear-gradient(135deg,#7a5cff,#4a2cff);transition:.2s}
+.ai-send:hover{transform:translateY(-2px)}
+@media(max-width:560px){.ai-chat{height:340px}.ai-chat .msg{max-width:92%}}
 </style></head>
 <body>
 <div class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع الليلي / النهاري">
@@ -212,6 +233,7 @@ body.light footer{background:rgba(255,255,255,.6)}
 <div class="prologin">
   <button class="pro-btn" id="proBtn">🔓 <span class="ar">تسجيل الدخول لنسخة البرو</span> <span class="fr">Pro</span></button>
   <div class="pro-badge" id="proBadge">⭐ <span class="ar">نسخة البرو</span> <span class="fr">Version Pro</span></div>
+  <button class="dev-btn" id="devBtn" style="display:none">👨‍💻 Mode Développeurs</button>
   <div class="pro-panel" id="proPanel">
     <div class="pro-title">🔐 تسجيل الدخول إلى نسخة البرو<small>Connexion à la version Pro</small></div>
     <input class="pro-inp" id="proEmail" type="text" autocomplete="off" placeholder="📧 البريد / Email">
@@ -431,6 +453,26 @@ body.light footer{background:rgba(255,255,255,.6)}
       <p style="margin-top:12px;color:#ffd7df;max-width:620px;margin-inline:auto">مسار تمهيدي للمبتدئين في عالم الأمن الرقمي · Un parcours d'initiation à la cybersécurité.</p>
     </div>
     <div id="content-cyber"></div>
+  </section>
+
+  <!-- DEV MODE -->
+  <section id="devmode">
+    <div class="sec-head">
+      <div><h2>وضع المطورين <span style="font-size:14px;color:#c7b8ff;font-family:Orbitron">Mode Développeurs</span></h2><div class="city">👨‍💻 للمطورين وخبراء الأمن السيبراني</div></div>
+      <button class="back" onclick="go('home')">← الرئيسية / Accueil</button>
+    </div>
+    <div class="dev-hero">
+      <div class="big">👨‍💻 مرحبا بالمطورين والمبرمجين وخبراء الأمن السيبراني</div>
+      <div class="fr">BIENVENUE AUX DÉVELOPPEURS, PROGRAMMEURS &amp; EXPERTS EN CYBERSÉCURITÉ</div>
+    </div>
+    <div class="ai-wrap">
+      <div class="ai-head">🤖 مساعد الذكاء الاصطناعي · ابنِ مستقبلك <span>Assistant IA · Construis ton avenir, étape par étape</span></div>
+      <div class="ai-chat" id="aiChat"></div>
+      <div class="ai-input">
+        <input id="aiInput" class="ai-inp" type="text" autocomplete="off" placeholder="اكتب جوابك هنا… / Écris ta réponse ici…">
+        <button id="aiSend" class="ai-send">إرسال ➤</button>
+      </div>
+    </div>
   </section>
 
 </div>
@@ -1088,7 +1130,7 @@ ALL.forEach(function(id){ if(CURR[id]&&!CURR[id][kEps]) CURR[id][kEps]=EPS.slice
   var btn=document.getElementById('proBtn'), panel=document.getElementById('proPanel'),
       badge=document.getElementById('proBadge'), submit=document.getElementById('proSubmit'),
       msg=document.getElementById('proMsg');
-  function activatePro(){ badge.style.display='inline-flex'; btn.style.display='none'; panel.classList.remove('open'); }
+  function activatePro(){ badge.style.display='inline-flex'; btn.style.display='none'; var dv=document.getElementById('devBtn'); if(dv) dv.style.display='inline-flex'; panel.classList.remove('open'); }
   try{ if(localStorage.getItem('proVersion')==='1') activatePro(); }catch(e){}
   if(btn) btn.addEventListener('click',function(){ panel.classList.toggle('open'); });
   if(submit) submit.addEventListener('click',function(){
@@ -1104,6 +1146,52 @@ ALL.forEach(function(id){ if(CURR[id]&&!CURR[id][kEps]) CURR[id][kEps]=EPS.slice
       msg.textContent='⚠️ بيانات الدخول غير صحيحة · Identifiants incorrects';
     }
   });
+})();
+/* ===== زر وضع المطورين + مساعد الذكاء الاصطناعي ===== */
+(function(){
+  var devBtn=document.getElementById('devBtn');
+  if(devBtn) devBtn.addEventListener('click',function(){ go('devmode'); });
+  var chat=document.getElementById('aiChat'), inp=document.getElementById('aiInput'), send=document.getElementById('aiSend');
+  if(!chat) return;
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  var state=0, data={};
+  function add(cls,html){ var d=document.createElement('div'); d.className='msg '+cls; if(cls==='user'){ d.textContent=html; } else { d.innerHTML=html; } chat.appendChild(d); chat.scrollTop=chat.scrollHeight; }
+  function bot(h){ add('bot',h); }
+  var ROADMAPS={
+    cyber:['أتقن أساسيات الحاسوب ونظامي Windows و Linux.','تعلّم أساسيات الشبكات: IP، DNS، HTTP، TCP/IP.','تعلّم لغة برمجة (Python) وسطر الأوامر (Terminal).','ادرس أساسيات الأمن: التشفير، كلمات المرور، الثغرات.','تدرّب على منصات قانونية مثل TryHackMe و HackTheBox.','تخصّص: اختبار الاختراق أو الدفاع (Blue Team) أو التحقيق الرقمي.','احصل على شهادة معترف بها (CompTIA Security+ ثم أعلى).','التزم بالأخلاق: لا تختبر أي نظام إلا بإذن واحترم القانون.'],
+    dev:['تعلّم أساسيات المنطق والخوارزميات.','ابدأ بلغة سهلة (Python) ثم أتقن أساسيات البرمجة.','تعلّم Git و GitHub لحفظ مشاريعك.','اختر مسارك: ويب (HTML/CSS/JS) أو تطبيقات أو ذكاء اصطناعي.','ابنِ مشاريع صغيرة حقيقية وانشرها.','تعلّم قواعد البيانات (SQL).','ساهم في مشاريع مفتوحة المصدر.','كوّن معرضاً (Portfolio) وتقدّم للتدريب أو العمل.'],
+    med:['ركّز على علوم الحياة والأرض والفيزياء والكيمياء.','احصل على باكالوريا علمية بمعدل مرتفع.','اجتَز مباراة كليات الطب.','السنوات الأولى: العلوم الأساسية (تشريح، فيزيولوجيا).','التدريب السريري في المستشفيات.','اجتياز الامتحانات الوطنية.','اختر تخصصاً (طب عام أو دقيق).','التكوين المستمر طوال المسار.'],
+    eng:['أتقن الرياضيات والفيزياء.','باكالوريا علمية أو تقنية بمعدل جيد.','الأقسام التحضيرية أو مدرسة المهندسين.','تعلّم لغة برمجة وأدوات التصميم.','تخصّص (معلوماتية، مدنية، كهرباء…).','التداريب في الشركات.','مشروع التخرج.','العمل والتطور المهني المستمر.'],
+    biz:['تعلّم أساسيات الاقتصاد والمحاسبة.','طوّر مهارات التواصل والقيادة.','تعلّم الإدارة والتسويق.','ابدأ مشروعاً صغيراً للتجربة.','تعلّم إدارة المال والميزانية.','ابنِ شبكة علاقات قوية.','ادرس السوق قبل أي مشروع.','تعلّم من أخطائك واستمر دون يأس.'],
+    def:['حدّد هدفك بوضوح واكتبه على ورقة.','نظّم وقتك بجدول يومي ثابت.','تعلّم الأساسيات القوية في مجالك.','مارس يومياً دون إضاعة الوقت في اللعب.','قِس تقدّمك أسبوعياً.','أحِط نفسك بأشخاص ناجحين.','لا تستسلم عند الصعوبات.','طوّر نفسك باستمرار وتعلّم شيئاً جديداً كل يوم.']
+  };
+  function pick(goal){ var g=goal.toLowerCase();
+    if(/أمن|سيبر|هكر|اختراق|hack|cyber|security|sécur/.test(g)) return 'cyber';
+    if(/برمج|مطور|مبرمج|تطبيق|موقع|develop|program|code|logiciel/.test(g)) return 'dev';
+    if(/طبيب|طب|دكتور|صح|médec|docteur|santé/.test(g)) return 'med';
+    if(/مهندس|هندس|ingénieur|engineer/.test(g)) return 'eng';
+    if(/تجار|أعمال|شركة|مقاول|business|entrepr|commerce/.test(g)) return 'biz';
+    return 'def'; }
+  function roadmap(){ var k=pick(data.goal||''); var steps=ROADMAPS[k];
+    var names={cyber:'الأمن السيبراني',dev:'البرمجة وتطوير البرمجيات',med:'الطب',eng:'الهندسة',biz:'الأعمال والمقاولة',def:'النجاح'};
+    var h='<b>رائع يا '+esc(data.name)+'! ✨</b>\nبناءً على طموحك في مجال <u>'+names[k]+'</u>، إليك الطريق من الصفر خطوة بخطوة — بدون لعب ولا إضاعة وقت:\n\n';
+    steps.forEach(function(s,i){ h+='<b>'+(i+1)+'🔹</b> '+s+'\n'; });
+    h+='\n<b>✅ قاعدة ذهبية:</b> ساعة واحدة من التركيز اليومي أفضل من يوم كامل من التشتت. ابدأ الآن ولا تؤجّل!\n<i>اكتب "إعادة" للبدء من جديد.</i>';
+    bot(h); state=9; }
+  function step(v){
+    if(state===0){ data.name=v; bot('تشرّفنا يا <b>'+esc(v)+'</b>! 😊 وكم عمرك؟'); state=1; }
+    else if(state===1){ data.age=v; bot('ممتاز! ما هو مستواك الدراسي حالياً؟ (مثلاً: ثانية باك علوم)'); state=2; }
+    else if(state===2){ data.level=v; bot('جيد جداً. الآن أسئلة عن دراستك 📚\nكم ساعة تدرس تقريباً كل يوم؟'); state=3; }
+    else if(state===3){ data.hours=v; bot('وما هي المادة التي تحبّها أكثر؟'); state=4; }
+    else if(state===4){ data.fav=v; bot('رائع! ❤️ وهل تواجه صعوبة في مادة معينة؟ اذكرها (أو اكتب “لا”).'); state=5; }
+    else if(state===5){ data.weak=v; bot('فهمتُ جيداً. 🎯 الآن السؤال الأهم:\n<b>ماذا تريد أن تكون في المستقبل؟ وما هو طموحك؟</b>'); state=6; }
+    else if(state===6){ data.goal=v; bot('طموح رائع 🚀 دعني أرسم لك الطريق…'); setTimeout(roadmap,700); }
+    else if(state===9){ if(/إعادة|reset|restart|من جديد/i.test(v)){ data={}; state=0; bot('لنبدأ من جديد! 😄 ما اسمك؟'); } else { bot('الطريق أمامك — ابدأ الخطوة الأولى اليوم! 💪 (اكتب "إعادة" لبدء حوار جديد)'); } }
+  }
+  function submit(){ var v=(inp.value||'').trim(); if(!v) return; add('user',v); inp.value=''; setTimeout(function(){ step(v); },350); }
+  if(send) send.addEventListener('click',submit);
+  if(inp) inp.addEventListener('keydown',function(e){ if(e.key==='Enter') submit(); });
+  bot('مرحباً 👋 أنا مساعدك الذكي لبناء مستقبلك من الصفر.\nسأطرح عليك بضع أسئلة ثم أرسم لك خطة واضحة خطوة بخطوة.\nلنبدأ: <b>ما اسمك؟</b>');
 })();
 buildGraded('pionniere',GRADES); buildGraded('lycee',GRADES_LY); buildGraded('privee',GRADES_ALL); renderCyberFull();
 </script></body></html>
