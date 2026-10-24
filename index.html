@@ -243,8 +243,79 @@ body.light footer{background:rgba(255,255,255,.6)}
 .ai-send{cursor:pointer;border:none;border-radius:12px;padding:12px 20px;font-family:'Cairo';font-weight:800;font-size:15px;color:#fff;background:linear-gradient(135deg,#7a5cff,#4a2cff);transition:.2s}
 .ai-send:hover{transform:translateY(-2px)}
 @media(max-width:560px){.ai-chat{height:340px}.ai-chat .msg{max-width:92%}}
+
+/* ============================================================
+   1) LOADER — شاشة التحميل الاحترافية
+   ============================================================ */
+#loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  background:radial-gradient(1200px 800px at 80% -10%,#15205c 0,transparent 60%),radial-gradient(1000px 700px at 0% 110%,#06302a 0,transparent 55%),linear-gradient(160deg,var(--bg),var(--bg2));
+  transition:opacity .6s ease,visibility .6s ease}
+#loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+#loader .ld-emblem{width:120px;height:134px;filter:drop-shadow(0 0 18px rgba(29,219,122,.6));animation:ldPulse 1.8s ease-in-out infinite}
+@keyframes ldPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 12px rgba(29,219,122,.45))}50%{transform:scale(1.06);filter:drop-shadow(0 0 26px rgba(29,219,122,.85))}}
+#loader .ld-title{font-family:'Cairo';font-size:clamp(18px,4vw,26px);font-weight:900;text-align:center;background:linear-gradient(90deg,#fff,#ffd35c,#1ddb7a,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 4s linear infinite}
+#loader .ld-sub{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;color:#9fd9ff}
+#loader .ld-bar{width:220px;height:6px;border-radius:6px;background:rgba(25,231,255,.15);overflow:hidden}
+#loader .ld-bar i{display:block;height:100%;width:40%;border-radius:6px;background:linear-gradient(90deg,var(--cyan),var(--green));animation:ldLoad 1.3s ease-in-out infinite}
+@keyframes ldLoad{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+
+/* ============================================================
+   2) LANGUAGE TOGGLE — زر تبديل اللغة
+   ============================================================ */
+.lang-toggle{position:fixed;top:60px;left:14px;z-index:60;display:flex;align-items:center;gap:6px;cursor:pointer;
+  padding:7px 12px;border-radius:30px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(10px);
+  color:#eaf4ff;font-family:'Cairo';font-weight:800;font-size:13px;box-shadow:0 0 18px rgba(25,231,255,.18);transition:transform .2s,box-shadow .2s}
+.lang-toggle:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(25,231,255,.3)}
+.lang-toggle .flag{font-size:16px}
+.lang-toggle .lbl{min-width:46px;text-align:center}
+/* عند تفعيل الوضع الفرنسي: إظهار نصوص FR وإخفاء نصوص AR الثنائية */
+body.lang-fr .navbtn .ar,body.lang-fr .pro-btn .ar,body.lang-fr .pro-badge .ar{display:none}
+body.lang-fr .navbtn .fr,body.lang-fr .subject h3 .fr{font-size:16px;opacity:1}
+body.lang-fr{direction:ltr}
+body.lang-fr .wrap,body.lang-fr section{direction:rtl}
+
+/* ============================================================
+   3) SEARCH BAR — شريط البحث عن التخصصات
+   ============================================================ */
+.search-wrap{max-width:560px;margin:26px auto 4px;position:relative}
+.search-box{display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:16px;
+  background:rgba(5,12,30,.6);border:1px solid rgba(25,231,255,.4);box-shadow:0 0 22px rgba(25,231,255,.12);transition:border-color .2s,box-shadow .2s}
+.search-box:focus-within{border-color:var(--cyan);box-shadow:0 0 18px rgba(25,231,255,.35)}
+.search-box .si{font-size:20px;color:var(--cyan)}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-family:'Cairo';font-size:15px}
+.search-box input::placeholder{color:#7fa6c9}
+.search-box .clr{cursor:pointer;border:none;background:transparent;color:#9fd9ff;font-size:18px;display:none}
+.search-box .clr.show{display:block}
+.search-results{margin:12px auto 0;max-width:560px;display:flex;flex-direction:column;gap:8px}
+.search-results .sr-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;cursor:pointer;
+  background:rgba(5,12,30,.55);border:1px solid rgba(25,231,255,.25);color:#eaf4ff;transition:transform .15s,border-color .2s}
+.search-results .sr-item:hover{transform:translateY(-2px);border-color:var(--cyan)}
+.search-results .sr-item .emo{font-size:20px}
+.search-results .sr-item .txt{display:flex;flex-direction:column;flex:1}
+.search-results .sr-item .txt b{font-size:14px}
+.search-results .sr-item .txt small{color:#9fd9ff;font-family:'Orbitron';font-size:10px;direction:ltr}
+.search-results .sr-item .sec-tag{font-size:10px;color:#042814;background:var(--green);padding:3px 8px;border-radius:20px;font-weight:800}
+.search-results .sr-empty{text-align:center;color:#9fd9ff;padding:14px;font-size:13px}
 </style></head>
 <body>
+<!-- ========== 1) LOADER — شاشة التحميل ========== -->
+<div id="loader">
+  <svg class="ld-emblem" viewBox="0 0 100 112" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="ldg1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#d4a017"/></linearGradient></defs>
+    <path d="M50 4 L58 16 L72 12 L70 27 Q86 34 86 52 Q86 86 50 108 Q14 86 14 52 Q14 34 30 27 L28 12 L42 16 Z" fill="rgba(10,30,20,.55)" stroke="url(#ldg1)" stroke-width="3"/>
+    <polygon points="50,34 55.9,51.8 74.5,51.8 59.3,62.8 65.2,80.6 50,69.6 34.8,80.6 40.7,62.8 25.5,51.8 44.1,51.8" fill="none" stroke="#1ddb7a" stroke-width="3.5" stroke-linejoin="round"/>
+  </svg>
+  <div class="ld-title">المدرسة الرائدة · العرائش</div>
+  <div class="ld-sub">ÉCOLE PIONNIÈRE · LARACHE</div>
+  <div class="ld-bar"><i></i></div>
+</div>
+
+<!-- ========== 2) LANGUAGE TOGGLE — زر تبديل اللغة ========== -->
+<div class="lang-toggle" id="langToggle" onclick="toggleLang()" title="تبديل اللغة / Changer la langue">
+  <span class="flag" id="langFlag">🇲🇦</span>
+  <span class="lbl" id="langLbl">عربية</span>
+</div>
 <div class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع الليلي / النهاري">
   <span class="ic" id="themeIcon">🌙</span>
   <div class="sw"></div>
@@ -329,6 +400,18 @@ body.light footer{background:rgba(255,255,255,.6)}
     <div class="hero">
       <div class="title">منصة التعلم الرقمي</div>
       <div class="sub">بوابة دروس التعليم الابتدائي · Plateforme d'Apprentissage Numérique 2034</div>
+    </div>
+
+    <!-- ========== 3) SEARCH BAR — شريط البحث عن التخصصات ========== -->
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="si">🔍</span>
+        <input id="searchInput" type="text" autocomplete="off"
+               placeholder="ابحث عن مادة أو تخصص… / Rechercher une matière ou filière…"
+               oninput="runSearch(this.value)">
+        <button class="clr" id="searchClr" onclick="clearSearch()" title="مسح">✕</button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
     </div>
     <div class="badge-row">
       <div class="id-badge"><div class="role">DEVELOPER</div><div class="nm">Adam Tariq — آدم طارق</div><div class="frn">المطوّر والمشرف العام</div></div>
@@ -1385,4 +1468,94 @@ Object.assign(CURR,{
 });
 /*FP_DATA*/
 buildGraded('pionniere',GRADES); buildGraded('lycee',GRADES_LY); buildGraded('privee',GRADES_ALL); buildGraded('ofppt',GRADES_FP); renderCyberFull();
+
+/* ============================================================
+   1) LOADER — إخفاء شاشة التحميل بعد تحميل الصفحة
+   ============================================================ */
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    var ld=document.getElementById('loader');
+    if(ld) ld.classList.add('hide');
+  },1400); // مدة ظهور شاشة التحميل (ملي ثانية)
+});
+
+/* ============================================================
+   2) LANGUAGE TOGGLE — تبديل اللغة عربية/فرنسية
+   ============================================================ */
+function toggleLang(){
+  var b=document.body;
+  b.classList.toggle('lang-fr');
+  var isFr=b.classList.contains('lang-fr');
+  document.getElementById('langFlag').textContent=isFr?'\uD83C\uDDEB\uD83C\uDDF7':'\uD83C\uDDF2\uD83C\uDDE6';
+  document.getElementById('langLbl').textContent=isFr?'Fran\u00e7ais':'\u0639\u0631\u0628\u064a\u0629';
+  try{localStorage.setItem('ep_lang',isFr?'fr':'ar');}catch(e){}
+}
+// استرجاع آخر لغة مختارة
+try{if(localStorage.getItem('ep_lang')==='fr'){toggleLang();}}catch(e){}
+
+/* ============================================================
+   3) SEARCH BAR — بحث وفلترة التخصصات / المواد
+   ============================================================ */
+// فهرسة كل التخصصات/المواد الموجودة في الأقسام
+var SEC_LABELS={pionniere:'\u0627\u0644\u0631\u0627\u0626\u062f\u0629',lycee:'\u0627\u0644\u062b\u0627\u0646\u0648\u064a\u0629',universite:'\u0627\u0644\u062c\u0627\u0645\u0639\u0629',privee:'\u0627\u0644\u062e\u0635\u0648\u0635\u064a\u0629',ofppt:'OFPPT',cyber:'Cyber'};
+function buildSearchIndex(){
+  var idx=[];
+  document.querySelectorAll('section').forEach(function(sec){
+    var sid=sec.id;
+    sec.querySelectorAll('.subject > h3').forEach(function(h3){
+      var emo='',ar='',fr='';
+      // استخراج النص العربي + الفرنسي
+      var frEl=h3.querySelector('.fr');
+      fr=frEl?frEl.textContent.trim():'';
+      // النص العربي = نص h3 بدون الجزء الفرنسي
+      ar=h3.textContent.replace(fr,'').trim();
+      // فصل الإيموجي إن وجد في البداية
+      var m=ar.match(/^([\p{Emoji_Presentation}\p{Extended_Pictographic}\uFE0F]+)\s*/u);
+      if(m){emo=m[1];ar=ar.slice(m[0].length).trim();}
+      idx.push({sid:sid,emo:emo,ar:ar,fr:fr,el:h3.parentNode});
+    });
+  });
+  return idx;
+}
+var SEARCH_IDX=buildSearchIndex();
+
+function runSearch(q){
+  q=(q||'').trim().toLowerCase();
+  var box=document.getElementById('searchResults');
+  var clr=document.getElementById('searchClr');
+  clr.classList.toggle('show',q.length>0);
+  if(!q){box.innerHTML='';return;}
+  var hits=SEARCH_IDX.filter(function(it){
+    return (it.ar+' '+it.fr).toLowerCase().indexOf(q)!==-1;
+  }).slice(0,12);
+  if(!hits.length){
+    box.innerHTML='<div class="sr-empty">\u2757 \u0644\u0627 \u062a\u0648\u062c\u062f \u0646\u062a\u064a\u062c\u0629 \u00b7 Aucun r\u00e9sultat</div>';
+    return;
+  }
+  box.innerHTML=hits.map(function(it){
+    return '<div class="sr-item" onclick="gotoResult(\''+it.sid+'\',\''+encodeURIComponent(it.ar)+'\')">'+
+      '<span class="emo">'+(it.emo||'\uD83D\uDCDA')+'</span>'+
+      '<span class="txt"><b>'+it.ar+'</b><small>'+it.fr+'</small></span>'+
+      '<span class="sec-tag">'+(SEC_LABELS[it.sid]||it.sid)+'</span>'+
+    '</div>';
+  }).join('');
+}
+function clearSearch(){
+  var inp=document.getElementById('searchInput');
+  inp.value='';runSearch('');inp.focus();
+}
+// الانتقال إلى القسم وفتح التخصص المطلوب
+function gotoResult(sid,arEnc){
+  var ar=decodeURIComponent(arEnc);
+  go(sid);
+  setTimeout(function(){
+    var found=SEARCH_IDX.find(function(it){return it.sid===sid&&it.ar===ar;});
+    if(found&&found.el){
+      found.el.classList.add('open');
+      found.el.scrollIntoView({behavior:'smooth',block:'center'});
+      found.el.style.boxShadow='0 0 26px rgba(25,231,255,.6)';
+      setTimeout(function(){found.el.style.boxShadow='';},1800);
+    }
+  },120);
+}
 </script></body></html>
